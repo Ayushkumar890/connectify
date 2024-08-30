@@ -13,7 +13,7 @@ const OTPSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        expires: 60 * 5, // The document will be automatically deleted after 5 minutes
+        expires: 60 * 3, // The document will be automatically deleted after 5 minutes
     },
 });
 
@@ -23,7 +23,8 @@ async function sendVerificationEmail(email, otp) {
             email,
             "Verification Email",
             `<h1>Please confirm your OTP</h1>
-             <p>Here is your OTP code: ${otp}</p>`
+             <p>Here is your OTP code: ${otp}</p>
+             <p>your otp valid only for 3 minutes</p>`
         );
         // console.log("Email sent successfully: ", mailResponse);
     } catch (error) {

@@ -86,7 +86,7 @@ exports.login = async (req, res) => {
             user.password = undefined;
 
             const options = {
-                expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+                expires: new Date(Date.now() +  24 * 60 * 60 * 1000),
                 httpOnly: true
             };
 
@@ -146,6 +146,7 @@ exports.sendotp = async (req, res) => {
             message: "OTP Sent Successfully",
             otp,
         });
+        
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({ success: false, error: error.message });
