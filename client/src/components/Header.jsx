@@ -3,15 +3,13 @@ import { useLocation } from 'react-router-dom';
 
 
 const Header = () => {
-  // State to manage the active tab
   const [active, setActive] = useState('Your World');
 
   const location = useLocation()
   if (location.pathname === '/otp'|| location.pathname === '/'  || location.pathname === '/login' || location.pathname === '/signup') return
   
-
   return (
-    <div className="w-full flex  justify-center  text-white bg-black border-gray-700 border-2">
+    <div className="w-full flex  justify-center  text-white bg-black border-gray-700 border-b-2">
       <div className="flex  w-full">
         {/* Your World */}
         <div className='w-1/2 flex py-3 hover:bg-zinc-800  items-center justify-center'>

@@ -11,12 +11,12 @@ const Layout = () => {
       <div className='flex lg:flex-row flex-1'>
         <div className="flex flex-col w-full h-screen overflow-hidden">
           <Header />
-          <div className="flex-1 px-10 overflow-y-auto border-2 border-gray-700 hide-scrollbar">
+          <div className="flex-1 md:px-10 overflow-y-auto hide-scrollbar">
             <Outlet />
           </div>
         </div>
         {/* Only render Popular section if not on excluded paths */}
-        <div className='flex flex-col px-4 '>
+        <div className='lg:flex hidden  flex-col  '>
           <div className=' hide-scrollbar overflow-y-auto'>
             <Popular />
           </div>

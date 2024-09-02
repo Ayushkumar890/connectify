@@ -57,11 +57,10 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
-
         if (!email || !password) {
             return res.status(400).json({
                 success: false,
-                message: "Plz fill all the details carefully"
+                message: "Please fill all the details carefully"
             });
         }
 
@@ -69,47 +68,47 @@ exports.login = async (req, res) => {
         if (!user) {
             return res.status(401).json({
                 success: false,
-                message: "You have to Signup First"
+                message: "Account doesn't exist! Check entered credentials."
             });
         }
 
         const payload = {
             email: user.email,
+            name: user.name,
             id: user._id,
             role: user.role,
         };
 
         if (await bcrypt.compare(password, user.password)) {
-            let token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
-            user = user.toObject();
-            user.token = token;
-            user.password = undefined;
-
+            const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
             const options = {
-                expires: new Date(Date.now() +  24 * 60 * 60 * 1000),
-                httpOnly: true
+                expires: new Date(Date.now() + 60 * 60 * 1000), 
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production', 
             };
-
-            res.cookie("token", token, options).status(200).json({
+            
+            res.cookie('jwtToken', token, options).status(200).json({
                 success: true,
-                token,
                 User: user,
-                message: "Logged in Successfully"
+                message: "Logged in successfully"
             });
+            
         } else {
             return res.status(403).json({
                 success: false,
-                message: "Password incorrects"
+                message: "Incorrect password"
             });
         }
     } catch (error) {
         console.error(error);
         res.status(500).json({
             success: false,
-            message: "Login failure:" + error
+            message: "Login failure: " + error.message
         });
     }
-}
+};
+
+
 
 // Send OTP handler
 exports.sendotp = async (req, res) => {
@@ -151,4 +150,14 @@ exports.sendotp = async (req, res) => {
         console.log(error.message);
         return res.status(500).json({ success: false, error: error.message });
     }
+};
+
+
+exports.logout = (req, res) => {
+    res.cookie('jwtToken', '', {
+        httpOnly: true,
+        expires: new Date(Date.now() - 1), 
+        secure: process.env.NODE_ENV === 'production' 
+    });
+    res.status(200).json({ success: true, message: 'Logged out successfully' });
 };

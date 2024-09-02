@@ -19,12 +19,17 @@ function Signup() {
             const response = await axios.post('http://localhost:3000/api/auth/signup', { name, email, password, role, otp });
             setMessage(response.data.message);
             setTimeout(() => {
-                setLoading(false); // Set loading to false after the delay
-                navigate('/login'); // Navigate after the delay
+                setLoading(false);
+                navigate('/login'); 
             }, 2000);
 
-        } catch (error) {
-            setMessage("Error signing up");
+        }  catch (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+                setMessage(error.response.data.message);
+            } else {
+                setMessage("Error Signing Up");
+            }
+            setLoading(false);
             console.error(error);
         }
     };
@@ -114,56 +119,6 @@ function Signup() {
             </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {/* <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Enter your name"
-            />
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-            />
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
-            />
-            <input
-                type="text"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                placeholder="Enter OTP"
-            />
-            <select value={role} onChange={(e) => setRole(e.target.value)}>
-                <option value="Visitor">Visitor</option>
-                <option value="Student">Student</option>
-                <option value="Admin">Admin</option>
-            </select>
-            <button onClick={handleSignup}>Signup</button>
-            {message && <p>{message}</p>} */}
         </div>
     );
 }

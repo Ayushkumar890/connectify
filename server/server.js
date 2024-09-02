@@ -1,24 +1,23 @@
 const express = require('express');
-const cors = require('cors'); // Import CORS
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const app = express();
 
-require('dotenv').config();
-const PORT = process.env.PORT || 3000;
-
-// Use CORS middleware to allow requests from different origins
-app.use(cors({
-    origin: 'http://localhost:3001' // Frontend origin
-}));
-
+app.use(cookieParser()); 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Import and connect to the database
-require('./config/database').connect();
+app.use(cors({
+    origin: 'http://localhost:3001',
+    credentials: true 
+}));
 
-// Import routes
+require('./config/database').connect();
 const userRoutes = require('./routes/user');
 app.use('/api/auth', userRoutes);
 
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });

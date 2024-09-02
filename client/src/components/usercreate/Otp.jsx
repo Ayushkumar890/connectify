@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Outlet, useNavigate } from 'react-router-dom';
+// import { set } from 'mongoose';
 
 function Otp() {
     const [email, setEmail] = useState('');
@@ -14,21 +15,22 @@ function Otp() {
             setLoading(true)
             const response = await axios.post('http://localhost:3000/api/auth/sendotp', { email });
             setMessage(response.data.message);
-            setTimeout(() => {
-                setLoading(false); // Set loading to false after the delay
-                navigate('/signup'); // Navigate after the delay
-            }, 2000);
-        } catch (error) {
-            setMessage("Error sending OTP");
+                setTimeout(() => {
+                    setLoading(false); 
+                    navigate('/signup');
+                }, 1000);
+          
+            } catch (error) {
+                if (error.response && error.response.data && error.response.data.message) {
+                    setMessage(error.response.data.message);
+                } else {
+                    setMessage("Error sending OTP");
+            }
+            setLoading(false);
             console.error(error);
         }
     };
-    // const handlepage = async () => {
-    //     setLoading(true)
-    //     navigate('/signup');
-    // }
-
-    // const displayb = message === "OTP Sent Successfully" ? 'block' : 'none';
+   
     const messageColor = message === "OTP Sent Successfully" ? 'green' : 'red';
  
     return (
@@ -71,10 +73,7 @@ function Otp() {
                     <Outlet />
                 </div>
             </div>
-            {/* <div className="w-40 md:w-60 px-3 mx-auto">
-                <button onClick={handlepage} type='submit' style={{ display: displayb }} className=" w-full bg-blue-800 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-blue-600 focus:outline-none ">SignUp Your Account</button>
-            </div> */}
-
+    
 
 
         </div>

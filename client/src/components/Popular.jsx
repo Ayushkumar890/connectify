@@ -8,6 +8,8 @@ const Popular = () => {
 
     return (
         <>
+        <div className='min-h-screen border-l-2 border-gray-700'>
+
             <div className='p-1 pt-3 sticky top-0 z-50 bg-black '>
                 <div className='  w-[90%] z-50 mx-auto p-4 bg-zinc-800 rounded-full border-2 border-white text-center hover:bg-zinc-900 '>
                     <h2 className='z-50 text-xl font-bold '>Popular</h2>
@@ -20,6 +22,7 @@ const Popular = () => {
             <PopularCard/>
             <PopularCard/>
             </div>
+        </div>
         </>
     )
 }

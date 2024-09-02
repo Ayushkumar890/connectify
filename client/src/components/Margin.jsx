@@ -10,6 +10,10 @@ const Margin = () => {
       <Blog/>
       <Blog/>
       <Blog/>
+      <Blog/>
+      <Blog/>
+      <Blog/>
+      <Blog/>
     </div>
   );
 };
