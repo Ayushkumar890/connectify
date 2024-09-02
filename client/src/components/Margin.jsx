@@ -5,15 +5,10 @@ import Blog from './Blog';
 const Margin = () => {
   return (
     <div>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
-      <Blog/>
+    {
+      Array.from({ length: 10 }, () => <Blog />)
+    }
+
     </div>
   );
 };

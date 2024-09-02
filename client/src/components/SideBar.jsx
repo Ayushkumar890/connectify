@@ -28,8 +28,8 @@ const SideBar = () => {
           });
           console.log('API response:', response.data); // Debugging: log the full response
           if (response.data && response.data.user.email) {
-              setEmail(response.data.user.email);
-              setName(response.data.user.name);
+              await setEmail(response.data.user.email);
+              await setName(response.data.user.name);
           } else {
               console.error('Error fetching user data:', response.data.message);
           }

@@ -1,7 +1,30 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Blog = () => {
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/auth/profile', {
+          withCredentials: true
+        });
+        console.log('API response:', response.data); // Debugging: log the full response
+        if (response.data && response.data.user) {
+          setName(response.data.user.name);
+        } else {
+          console.error('Error fetching user data:', response.data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+
+    fetchUserData();
+  }, []);
   return (
     <div className="w-full hide-scrollbar ">
       <div className="py-1 md:py-4 px-2 md:px-4 w-full bg-black  lg:py-2 lg:px-6">
@@ -24,14 +47,18 @@ const Blog = () => {
                 src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
                 alt="Jese Leos avatar"
               />
-              <span className="font-medium text-lg py-2 text-white">Jese Leos</span>
+              <span className="font-medium text-lg py-2 text-white">{name}</span>
 
             </div>
             <h2 className="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">
-              <Link to="#">How to quickly deploy</Link>
+              <Link to="#">Boost Your Immunity with These Essential Nutrients!
+              </Link>
             </h2>
             <p className=" font-light text-gray-200 dark:text-gray-400">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut dicta illo nostrum fugiat, quasi ut expedita enim, perferendis, rerum eius quibusdam nemo voluptas perspiciatis voluptate ipsam voluptatum delectus officiis magni..
+              Vitamin C: Found in citrus fruits, it helps protect your body against infections.
+              Zinc: Crucial for immune function, available in nuts, seeds, and meat.
+              Probiotics: Enhance gut health, which is linked to overall immunity.
+              Join the discussion below to learn more about how you can integrate these nutrients into your diet!
             </p>
 
           </article>
