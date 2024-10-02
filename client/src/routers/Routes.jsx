@@ -1,6 +1,6 @@
 import Home from "../components/Home";
 import Layout from "../components/Layout";
-import Margin from "../components/Margin";
+import TotalPost from "../components/TotalPost";
 import Login from "../components/usercreate/Login";
 import Otp from "../components/usercreate/Otp";
 import Signup from "../components/usercreate/Signup";
@@ -16,7 +16,7 @@ export const router = createBrowserRouter(
             <Route path="otp" element={<PublicRoute><Otp /></PublicRoute>} />
             <Route path="signup" element={<PublicRoute><Signup /></PublicRoute>} />
             <Route path="login" element={<PublicRoute><Login /></PublicRoute>} />
-            <Route path="home" element={<ProtectedRoute> <Margin /></ProtectedRoute>} />
+            <Route path="home" element={<ProtectedRoute> <TotalPost /></ProtectedRoute>} />
         </Route>
     )
 );

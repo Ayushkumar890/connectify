@@ -20,8 +20,8 @@ const SideBar = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
 
-  useEffect(() => {
-    const fetchUserData = async () => {
+ 
+  const fetchUserData = async () => {
       try {
           const response = await axios.get('http://localhost:3000/api/auth/profile', {
               withCredentials: true 
@@ -37,18 +37,14 @@ const SideBar = () => {
           console.error('Error fetching user data:', error);
       }
   };
-  
+  fetchUserData();
 
-    fetchUserData();
-  }, []);
 
   const handleLogout = async () => {
     try {
         const response = await axios.get('http://localhost:3000/api/auth/logout', { withCredentials: true });
-        console.log(response.data.message); // Log the response message for debugging
-
-        // Redirect to the login page or update the UI
-        window.location.href = '/login'; // Redirect to login page
+        console.log(response.data.message); 
+        window.location.href = '/login'; 
 
     } catch (error) {
         console.error('Error logging out:', error);

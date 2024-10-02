@@ -3,10 +3,13 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
+const compression = require('compression');
+
 
 app.use(cookieParser()); 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(compression());
 
 app.use(cors({
     origin: 'http://localhost:3001',

@@ -12,7 +12,7 @@ const Popular = () => {
 
             <div className='p-1 pt-3 sticky top-0 z-50 bg-black '>
                 <div className='  w-[90%] z-50 mx-auto p-4 bg-zinc-800 rounded-full border-2 border-white text-center hover:bg-zinc-900 '>
-                    <h2 className='z-50 text-xl font-bold '>Popular</h2>
+                    <h2 className='text-xl font-bold '>Popular</h2>
                 </div>
             </div>
             <div className='z-20'>
