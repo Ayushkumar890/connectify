@@ -1,6 +1,7 @@
 import Home from "../components/Home";
 import Layout from "../components/Layout";
 import MyPost from "../components/Mypost/MyPost";
+import UserProfile from "../components/Profile/UserProfile";
 import TotalPost from "../components/TotalPost";
 import Login from "../components/usercreate/Login";
 import Otp from "../components/usercreate/Otp";
@@ -19,6 +20,7 @@ export const router = createBrowserRouter(
             <Route path="login" element={<PublicRoute><Login /></PublicRoute>} />
             <Route path="home" element={<ProtectedRoute> <TotalPost /></ProtectedRoute>} />
             <Route path="mypost" element={<ProtectedRoute> <MyPost /></ProtectedRoute>} />
+            <Route path="profile" element={<ProtectedRoute> <UserProfile /></ProtectedRoute>} />
         </Route>
     )
 );

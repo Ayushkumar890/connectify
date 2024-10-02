@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   TbLayoutDashboard,
   TbHome,
@@ -81,7 +81,9 @@ const SideBar = () => {
         <ul className="pt-6">
           <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2`}>
             <TbHome style={{ width: '30px', height: '30px' }} />
+            <Link to='/home'>
             <span className={`${!open && 'hidden'} origin-left duration-200`}>Home</span>
+            </Link>
           </li>
           <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2 ${open && 'bg-light-white'}`}>
             <TbLayoutDashboard style={{ width: '30px', height: '30px' }} />
@@ -113,19 +115,24 @@ const SideBar = () => {
           </li>
         </ul>
       </div>
-      <div className={`absolute bottom-5 pl-5 flex items-center space-x-4 text-white`}>
+      <div >
+      <Link to='/profile'>
+      <div className={`absolute bottom-5 pl-5 flex items-center space-x-4 text-white`} >
+
         <img className="w-12 h-12 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
         <div>
           <div className={`font-medium ${!open ? 'hidden' : 'block'} origin-left duration-200`}>
             {name ? name : 'No name Found'}
           </div>
           <div
-            className={`font-medium ${!open ? 'hidden' : 'block'} origin-left text-gray-600 duration-200 truncate w-[190px]`}
+            className={`font-medium ${!open ? 'hidden' : 'block'} origin-left text-gray-600 duration-200 truncate w-[230px]`}
           >
             {email ? email : 'No Email Found'}
           </div>
 
         </div>
+      </div>
+        </Link>
       </div>
     </div>
   );

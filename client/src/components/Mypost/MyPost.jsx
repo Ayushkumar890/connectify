@@ -78,7 +78,7 @@ const MyPost = () => {
                   />
                 ))
               ) : (
-                <div className="flex flex-col items-center justify-center min-h-[500px] text-gray-500 animate-pulse">
+                <div className="flex flex-col items-center justify-center min-h-[500px] text-gray-500 animate-pulse z-10">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
