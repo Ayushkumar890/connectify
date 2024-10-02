@@ -117,9 +117,11 @@ const SideBar = () => {
         <img className="w-12 h-12 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
         <div>
           <div className={`font-medium ${!open ? 'hidden' : 'block'} origin-left duration-200`}>
-            {name}
+            {name ? name : 'No name Found'}
           </div>
-          <div className={`font-medium ${!open ? 'hidden' : 'block'} origin-left text-gray-600 duration-200`}>
+          <div
+            className={`font-medium ${!open ? 'hidden' : 'block'} origin-left text-gray-600 duration-200 truncate w-[190px]`}
+          >
             {email ? email : 'No Email Found'}
           </div>
 

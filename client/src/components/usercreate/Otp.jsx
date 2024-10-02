@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 // import { set } from 'mongoose';
 
 function Otp() {
@@ -63,6 +63,13 @@ function Otp() {
                         </div>
 
 
+
+                        <div className="w-full flex items-center justify-between px-3 py-1 mb-3 ">
+                            <div className="w-full text-right ">
+                                <Link to="/" className="text-blue-500 text-sm tracking-tight pl-2">Home</Link>
+                            </div>
+                           
+                        </div>
                         <div className="w-full md:w-full px-3">
                             <button onClick={handleSendOtp} type='submit' className="block w-full bg-green text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green focus:outline-none ">{loading ? 'wait...' : 'Send OTP'}</button>
                         </div>

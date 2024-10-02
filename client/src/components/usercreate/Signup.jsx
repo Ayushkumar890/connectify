@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Signup() {
     const [name, setName] = useState('');
@@ -20,10 +20,10 @@ function Signup() {
             setMessage(response.data.message);
             setTimeout(() => {
                 setLoading(false);
-                navigate('/login'); 
+                navigate('/login');
             }, 2000);
 
-        }  catch (error) {
+        } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
                 setMessage(error.response.data.message);
             } else {
@@ -103,9 +103,12 @@ function Signup() {
                                 <option value="Admin">Sports Coach</option>
                             </select>
                         </div>
-                        <div className="w-full flex items-center justify-between px-3 mb-3 ">
-                            <div className="w-full text-right">
-                                <a href="/#" className="text-blue-500 text-sm tracking-tight">Forget your password?</a>
+                        <div className="w-full flex items-center justify-between px-3 py-1 mb-3 ">
+                            <div className="w-auto  text-left ">
+                                <Link to="/" className="text-blue-500 text-sm tracking-tight pl-2">Home</Link>
+                            </div>
+                            <div className="w-full text-right "> Already have an account?
+                                <Link to="/login" className="text-blue-500 text-sm tracking-tight pl-2">Sign In</Link>
                             </div>
                         </div>
                         <div className="w-full md:w-full px-3">

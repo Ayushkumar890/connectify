@@ -39,6 +39,7 @@ function PostForm() {
       );
       console.log("Post created:", response.data);
       setShowForm(false);
+      window.location.reload(true); // Reload from server (bypass cache)
     } catch (error) {
       console.error("Error creating post:", {
         message: error.message,

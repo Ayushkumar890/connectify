@@ -11,21 +11,25 @@ const Layout = () => {
       <SideBar />
       <div className='flex lg:flex-row flex-1'>
         <div className="flex  flex-col w-full h-screen overflow-hidden">
+
           <Header />
+
           <div className="flex-1 md:px-10 overflow-y-auto hide-scrollbar">
             <Outlet />
           </div>
+
         </div>
-         <div className='absolute z-10 bottom-6 right-10  lg:right-[385px]'>
-          <PostForm/>
+        
+        <div className='absolute z-10 bottom-6 right-10  lg:right-[385px]'>
+          <PostForm />
         </div>
-        {/* Only render Popular section if not on excluded paths */}
+
         <div className='lg:flex hidden  flex-col  '>
           <div className=' hide-scrollbar overflow-y-auto'>
             <Popular />
           </div>
         </div>
-       
+
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -10,17 +10,17 @@ function Login() {
     const navigate = useNavigate();
 
     const handleLogin = async (event) => {
-        event.preventDefault(); 
+        event.preventDefault();
         try {
             setLoading(true);
             const response = await axios.post('http://localhost:3000/api/auth/login', { email, password }, { withCredentials: true });
             setMessage(response.data.message);
-            
+
             setTimeout(() => {
                 setLoading(false);
-                navigate('/home'); 
+                navigate('/home');
             }, 1000);
-    
+
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
                 setMessage(error.response.data.message);
@@ -31,7 +31,7 @@ function Login() {
             console.error(error);
         }
     };
-    
+
 
     const messageColor = message === "Logged in successfully" ? 'green' : 'red';
 
@@ -72,6 +72,14 @@ function Login() {
                                     placeholder="Enter your password"
                                     required
                                 />
+                            </div>
+                            <div className="w-full flex items-center justify-between px-3 py-1 mb-3 ">
+                                <div className="w-auto  text-left ">
+                                    <Link to="/" className="text-blue-500 text-sm tracking-tight pl-2">Home</Link>
+                                </div>
+                                <div className="w-full text-right "> Don't have an account?
+                                    <Link to="/otp" className="text-blue-500 text-sm tracking-tight pl-2">Sign Up</Link>
+                                </div>
                             </div>
                             <div className="w-full md:w-full px-3">
                                 <button
