@@ -3,7 +3,7 @@ const router = express.Router();
 const { login, signup, sendotp, logout } = require('../controllers/auth');
 const { auth, verifyToken } = require('../middlewares/authMiddle');
 const {Post} = require('../models/post');
-const { setposts, getposts } = require('../controllers/post');
+const { setposts, getposts, getUserPosts, deletePost } = require('../controllers/post');
 
 // Public routes
 router.post('/login', login);
@@ -13,7 +13,8 @@ router.get('/verify-token', verifyToken);
 router.get('/logout', logout);
 router.get('/posts', getposts);
 router.post('/posts',auth, setposts);
-
+router.get('/myposts',auth, getUserPosts);
+router.delete('/posts/:postId', auth, deletePost);
 
 // Testing protected route
 router.get('/test', auth, (req, res) => {
