@@ -1,14 +1,14 @@
 import React from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo1 from "../Assets/logo-no-background.png";
 import main1 from "../Assets/main4.png";
 
 function Home() {
   const navigate = useNavigate();
-  const handlesignup = async () => {
+  const handlesignup = () => {
     navigate("otp");
   };
-  const handlelogin = async () => {
+  const handlelogin = () => {
     navigate("login");
   };
   return (
