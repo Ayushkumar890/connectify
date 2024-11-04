@@ -17,6 +17,7 @@ app.use(cors({
 }));
 
 require('./config/database').connect();
+
 const userRoutes = require('./routes/user');
 app.use('/api/auth', userRoutes);
 

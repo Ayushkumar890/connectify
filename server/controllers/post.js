@@ -31,7 +31,7 @@ exports.setposts = async (req, res) => {
 
 exports.getposts = async (req, res) => {
     try {
-        const posts = await Post.find().populate('name', 'name'); 
+        const posts = await Post.find().populate('name', 'name role'); 
         res.status(200).json({ success: true, data: posts });
     } catch (error) {
         console.error("Error fetching posts:", error);

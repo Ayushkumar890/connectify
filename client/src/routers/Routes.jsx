@@ -1,11 +1,11 @@
 import Home from "../components/Home";
 import Layout from "../components/Layout";
 import MyPost from "../components/Mypost/MyPost";
-import UserProfile from "../components/Profile/UserProfile";
 import TotalPost from "../components/TotalPost";
 import Login from "../components/usercreate/Login";
 import Otp from "../components/usercreate/Otp";
 import Signup from "../components/usercreate/Signup";
+import UserProfile from "../components/UserProfile";
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
 
