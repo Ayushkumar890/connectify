@@ -97,10 +97,11 @@ function Signup() {
                             <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor='Password'>Expert</label>
 
                             <select className='appearance-none block w-full bg-neutral-950 text-white font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none' value={role} onChange={(e) => setRole(e.target.value)}>
-                                <option value="Visitor">Fitness Coach</option>
-                                <option value="Student">Mental Health Experts</option>
-                                <option value="Admin">Yoga Instructor</option>
-                                <option value="Admin">Sports Coach</option>
+                                <option value="visitor">User</option>
+                                <option value="Fitness">Fitness Coach</option>
+                                <option value="Mental">Mental Health Experts</option>
+                                <option value="Yoga">Yoga Instructor</option>
+                                <option value="Sports">Sports Coach</option>
                             </select>
                         </div>
                         <div className="w-full flex items-center justify-between px-3 py-1 mb-3 ">
