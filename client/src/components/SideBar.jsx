@@ -80,8 +80,8 @@ const SideBar = () => {
         </div>
         <ul className="pt-6">
           <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2`}>
-            <TbHome style={{ width: '30px', height: '30px' }} />
             <Link to='/home'>
+            <TbHome style={{ width: '30px', height: '30px' }} />
             <span className={`${!open && 'hidden'} origin-left duration-200`}>Home</span>
             </Link>
           </li>
