@@ -6,7 +6,7 @@ import {
   TbUsersGroup,
   TbSearch,
   TbMessage2,
-  TbCircleChevronRight,
+  // TbCircleChevronRight,
   TbLogout,
 } from 'react-icons/tb';
 import { BsFire } from 'react-icons/bs';
@@ -20,36 +20,36 @@ const SideBar = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
 
- 
+
   const fetchUserData = async () => {
-      try {
-          const response = await axios.get('http://localhost:3000/api/auth/profile', {
-              withCredentials: true 
-          });
-          // console.log('API response:', response.data); // Debugging: log the full response
-          if (response.data && response.data.user.email) {
-              await setEmail(response.data.user.email);
-              await setName(response.data.user.name);
-          } else {
-              console.error('Error fetching user data:', response.data.message);
-          }
-      } catch (error) {
-          console.error('Error fetching user data:', error);
+    try {
+      const response = await axios.get('http://localhost:3000/api/auth/profile', {
+        withCredentials: true
+      });
+      // console.log('API response:', response.data); // Debugging: log the full response
+      if (response.data && response.data.user.email) {
+        await setEmail(response.data.user.email);
+        await setName(response.data.user.name);
+      } else {
+        console.error('Error fetching user data:', response.data.message);
       }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
   };
   fetchUserData();
 
 
   const handleLogout = async () => {
     try {
-        const response = await axios.get('http://localhost:3000/api/auth/logout', { withCredentials: true });
-        console.log(response.data.message); 
-        window.location.href = '/login'; 
+      const response = await axios.get('http://localhost:3000/api/auth/logout', { withCredentials: true });
+      console.log(response.data.message);
+      window.location.href = '/login';
 
     } catch (error) {
-        console.error('Error logging out:', error);
+      console.error('Error logging out:', error);
     }
-};
+  };
 
 
   useEffect(() => {
@@ -79,10 +79,10 @@ const SideBar = () => {
           <img src={open ? logo1 : logo2} className={`cursor-pointer w-56 duration-500 ${open && 'rotate-[360deg]'}`} alt="Logo" />
         </div>
         <ul className="pt-6">
-          <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2`}>
-            <Link to='/home'>
-            <TbHome style={{ width: '30px', height: '30px' }} />
-            <span className={`${!open && 'hidden'} origin-left duration-200`}>Home</span>
+          <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center  mt-2`}>
+            <Link to='/home' className='flex items-center gap-x-4'>
+              <TbHome style={{ width: '30px', height: '30px' }} />
+              <span className={`${!open && 'hidden'} origin-left duration-200`}>Home</span>
             </Link>
           </li>
           <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2 ${open && 'bg-light-white'}`}>
@@ -101,37 +101,37 @@ const SideBar = () => {
             <TbSearch style={{ width: '30px', height: '30px' }} />
             <span className={`${!open && 'hidden'} origin-left duration-200`}>Search</span>
           </li>
-          <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2`}>
+          {/* <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2`}>
             <TbCircleChevronRight style={{ width: '30px', height: '30px' }} />
             <span className={`${!open && 'hidden'} origin-left duration-200`}>About</span>
-          </li>
+          </li> */}
           <li className={`flex md:hidden rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2`}>
             <BsFire style={{ width: '30px', height: '30px' }} />
             <span className={`${!open && 'hidden'} origin-left duration-200`}>Popular</span>
           </li>
           <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2`}>
             <button className='flex gap-3' onClick={handleLogout}><TbLogout style={{ width: '30px', height: '30px' }} />
-            <span className={`${!open && 'hidden'} origin-left duration-200`}>Logout</span></button>
+              <span className={`${!open && 'hidden'} origin-left duration-200`}>Logout</span></button>
           </li>
         </ul>
       </div>
       <div >
-      <Link to='/profile'>
-      <div className={`absolute bottom-5 pl-5 flex items-center space-x-4 text-white`} >
+        <Link to='/profile'>
+          <div className={`absolute bottom-5 pl-5 flex items-center space-x-4 text-white`} >
 
-        <img className="w-12 h-12 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
-        <div>
-          <div className={`font-medium ${!open ? 'hidden' : 'block'} origin-left duration-200`}>
-            {name ? name : 'No name Found'}
-          </div>
-          <div
-            className={`font-medium ${!open ? 'hidden' : 'block'} origin-left text-gray-600 duration-200 truncate w-[230px]`}
-          >
-            {email ? email : 'No Email Found'}
-          </div>
+            <img className="w-12 h-12 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+            <div>
+              <div className={`font-medium ${!open ? 'hidden' : 'block'} origin-left duration-200`}>
+                {name ? name : 'No name Found'}
+              </div>
+              <div
+                className={`font-medium ${!open ? 'hidden' : 'block'} origin-left text-gray-600 duration-200 truncate w-[230px]`}
+              >
+                {email ? email : 'No Email Found'}
+              </div>
 
-        </div>
-      </div>
+            </div>
+          </div>
         </Link>
       </div>
     </div>
