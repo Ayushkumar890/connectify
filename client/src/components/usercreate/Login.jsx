@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import validator from "validator";
+
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
+    const [emailError, setEmailError] = useState("");
     const navigate = useNavigate();
+
+    const validateEmail = (emailToValidate) => {
+        if (!validator.isEmail(emailToValidate)) {
+            setEmailError("Please, enter a valid email!");
+        } else {
+            setEmailError("");
+        }
+    };
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -57,11 +68,17 @@ function Login() {
                                     className="appearance-none block w-full bg-neutral-950 text-white font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"
                                     type="email"
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={(e) => {
+                                        const newEmail = e.target.value;
+                                        setEmail(newEmail);
+                                        validateEmail(newEmail);
+                                    }}
                                     placeholder="Enter your email"
                                     required
                                 />
+                                <div style={{ color: "red" }}> {emailError} </div>
                             </div>
+
                             <div className="w-full md:w-full px-3 mb-6">
                                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor='Password'>Password</label>
                                 <input

@@ -2,12 +2,22 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 // import { set } from 'mongoose';
+import validator from "validator";
+
 
 function Otp() {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
+    const [emailError, setEmailError] = useState("");
 
+    const validateEmail = (emailToValidate) => {
+        if (!validator.isEmail(emailToValidate)) {
+            setEmailError("Please, enter a valid email!");
+        } else {
+            setEmailError("");
+        }
+    };
 
     const navigate = useNavigate();
     const handleSendOtp = async () => {
@@ -15,24 +25,24 @@ function Otp() {
             setLoading(true)
             const response = await axios.post('http://localhost:3000/api/auth/sendotp', { email });
             setMessage(response.data.message);
-                setTimeout(() => {
-                    setLoading(false); 
-                    navigate('/signup');
-                }, 1000);
-          
-            } catch (error) {
-                if (error.response && error.response.data && error.response.data.message) {
-                    setMessage(error.response.data.message);
-                } else {
-                    setMessage("Error sending OTP");
+            setTimeout(() => {
+                setLoading(false);
+                navigate('/signup');
+            }, 1000);
+
+        } catch (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+                setMessage(error.response.data.message);
+            } else {
+                setMessage("Error sending OTP");
             }
             setLoading(false);
             console.error(error);
         }
     };
-   
+
     const messageColor = message === "OTP Sent Successfully" ? 'green' : 'red';
- 
+
     return (
         <div className='bg-black min-h-screen'>
             <div className="text-center pt-20  ">
@@ -57,9 +67,14 @@ function Otp() {
                             <input className="appearance-none block w-full bg-neutral-950 text-white font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"
                                 type="email"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(e) => {
+                                    const newEmail = e.target.value;
+                                    setEmail(newEmail);
+                                    validateEmail(newEmail);
+                                }}
                                 placeholder="Enter your email"
                                 required />
+                            <div style={{ color: "red" }}> {emailError} </div>
                         </div>
 
 
@@ -68,7 +83,7 @@ function Otp() {
                             <div className="w-full text-right ">
                                 <Link to="/" className="text-blue-500 text-sm tracking-tight pl-2">Home</Link>
                             </div>
-                           
+
                         </div>
                         <div className="w-full md:w-full px-3">
                             <button onClick={handleSendOtp} type='submit' className="block w-full bg-green text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green focus:outline-none ">{loading ? 'wait...' : 'Send OTP'}</button>
@@ -80,7 +95,7 @@ function Otp() {
                     <Outlet />
                 </div>
             </div>
-    
+
 
 
         </div>

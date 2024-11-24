@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import validator from "validator";
+
 
 function Signup() {
     const [name, setName] = useState('');
@@ -10,7 +12,18 @@ function Signup() {
     const [otp, setOtp] = useState('');
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
+    const [emailError, setEmailError] = useState("");
+
     const navigate = useNavigate();
+
+
+    const validateEmail = (emailToValidate) => {
+        if (!validator.isEmail(emailToValidate)) {
+            setEmailError("Please, enter a valid email!");
+        } else {
+            setEmailError("");
+        }
+    };
 
     const handleSignup = async () => {
 
@@ -78,9 +91,14 @@ function Signup() {
                             <input className="appearance-none block w-full bg-neutral-950 text-white font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"
                                 type="email"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(e) => {
+                                    const newEmail = e.target.value;
+                                    setEmail(newEmail);
+                                    validateEmail(newEmail);
+                                }}
                                 placeholder="Enter your email"
                                 required />
+                            <div style={{ color: "red" }}> {emailError} </div>
                         </div>
 
                         <div className="w-full md:w-full px-3 mb-6">
