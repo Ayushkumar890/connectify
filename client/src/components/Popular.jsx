@@ -4,7 +4,7 @@ import PopularCard from './PopularCard'
 
 const Popular = () => {
     const location = useLocation()
-    if (location.pathname === '/otp'|| location.pathname === '/'  || location.pathname === '/login' || location.pathname === '/signup') return
+    if (location.pathname === '/otp'|| location.pathname === '/'  || location.pathname === '/login' || location.pathname === '/signup'|| location.pathname === '/chat') return
 
     return (
         <>

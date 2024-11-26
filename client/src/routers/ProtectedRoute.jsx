@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const ProtectedRoute = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -29,7 +30,15 @@ const ProtectedRoute = ({ children }) => {
         checkAuth();
     }, []);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <div><div className="flex justify-center mt-20">
+    <ClipLoader
+      color={'#0d8007'}
+      loading={loading}
+      size={100}
+      aria-label="Loading Spinner"
+      data-testid="loader"
+    />
+  </div></div>;
 
     return isAuthenticated ? children : <Navigate to="/login" />;
 };

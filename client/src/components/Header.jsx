@@ -18,7 +18,9 @@ const Header = () => {
     location.pathname === '/' ||
     location.pathname === '/login' ||
     location.pathname === '/signup'|| 
-    location.pathname === '/profile'
+    location.pathname === '/profile'|| 
+    location.pathname === '/chat'||
+    location.pathname === '/search'
   ) return null;
 
   return (

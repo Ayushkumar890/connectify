@@ -7,10 +7,8 @@ import { Link } from "react-router-dom";
 const UserProfile = () => {
     const [email, setEmail] = useState([]);
     const [name, setName] = useState([]);
-    const [role, setRole] = useState([]);
-
-  
-   
+    const [role, setRole] = useState([]); 
+    const [avatarLink, setAvatarLink]= useState("https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg");
     const fetchUserData = async () => {
         try {
             const response = await axios.get('http://localhost:3000/api/auth/profile', {
@@ -22,6 +20,7 @@ const UserProfile = () => {
                 await setEmail(response.data.user.email);
                 await setName(response.data.user.name);
                 await setRole(response.data.user.role);
+                await setAvatarLink(response.data.user.image);
             } else {
                 console.error('Error fetching user data:', response.data.message);
             }
@@ -44,7 +43,7 @@ const UserProfile = () => {
           <div className="   w-32 h-32 md:w-52 md:h-52 relative -mt-16 border-green border-4 rounded-full overflow-hidden">
             <img
               className="object-cover object-center h-32 md:h-52"
-              src="https://www.shutterstock.com/image-photo/man-performing-sukhasana-sitting-on-600nw-543700657.jpg"
+              src={avatarLink}
               alt="Woman looking front"
             />
             <div></div>

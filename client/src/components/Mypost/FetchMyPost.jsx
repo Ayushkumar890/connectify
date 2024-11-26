@@ -5,6 +5,10 @@ import { TbTrash } from 'react-icons/tb';
 const FetchMyPost = ({ post, onDelete }) => {
   const [Role, setRole] = useState('');
 
+
+
+  const [avatarLink, setAvatarLink]= useState("https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg");
+
   // Fetch user data only once when the component mounts
   useEffect(() => {
     const fetchUserData = async () => {
@@ -15,6 +19,7 @@ const FetchMyPost = ({ post, onDelete }) => {
         console.log('API response:', response.data.user.role); // Debugging: log the full response
         if (response.data && response.data.user.role) {
           setRole(response.data.user.role);
+          await setAvatarLink(response.data.user.image);
         } else {
           console.error('Error fetching user data:', response.data.message);
         }
@@ -54,7 +59,7 @@ const FetchMyPost = ({ post, onDelete }) => {
         {/* <span className="text-sm">{new Date(post.time).toLocaleDateString()}</span> */}
       </div>
       <div className="flex items-center space-x-4 space-y-2">
-        <img className="w-10 h-10 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Avatar" />
+        <img className="w-10 h-10 rounded-full" src={avatarLink} alt="Avatar" />
         <div className='flex justify-between w-full'>
           <div className="font-medium uppercase text-lg py-2 text-white">{post.name.name}</div>
           <div className="text-sm ">{new Date(post.time).toLocaleDateString()}</div>

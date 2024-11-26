@@ -7,7 +7,7 @@ const MyPost = () => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
+ 
   // Fetch posts
   const fetchMyPosts = async () => {
     try {

@@ -5,8 +5,18 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 const TotalPost = () => {
   const [posts, setPosts] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const fetchCurrentUser = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/auth/profile', { withCredentials: true });
+      setCurrentUser(response.data.user);  // Set current user from backend
+    } catch (error) {
+      console.error("Error fetching current user:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -28,6 +38,7 @@ const TotalPost = () => {
     };
 
     fetchPosts();
+    fetchCurrentUser();
   }, []);
 
   if (error) {
@@ -53,7 +64,7 @@ const TotalPost = () => {
           <div className="py-1 md:py-4 px-2 md:px-4 w-full bg-black lg:py-2 lg:px-6">
             <div className="grid gap-8 w-full">
               {reversedPosts.length > 0 ? (
-                reversedPosts.map((post) => <Blog key={post._id} post={post} />)
+                reversedPosts.map((post) => <Blog key={post._id} post={post} currentUser={currentUser}  />)
               ) : (
                 <div className="flex flex-col items-center justify-center min-h-[500px] text-gray-500 animate-pulse">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-12 h-12 mb-4">

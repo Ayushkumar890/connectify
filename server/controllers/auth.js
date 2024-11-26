@@ -35,8 +35,11 @@ exports.signup = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        const hex = Math.floor(Math.random() * 16777215).toString(16);
+        const image = `https://ui-avatars.com/api/?background=${hex}&color=fff&name=${name}`;
+
         const newUser = await User.create({
-            name, email, password: hashedPassword, role
+            name, email, password: hashedPassword, role, image
         });
 
         return res.status(200).json({
@@ -82,17 +85,17 @@ exports.login = async (req, res) => {
         if (await bcrypt.compare(password, user.password)) {
             const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
             const options = {
-                expires: new Date(Date.now() + 60 * 60 * 1000), 
+                expires: new Date(Date.now() + 3 * 60 * 60 * 1000),
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production', 
+                secure: process.env.NODE_ENV === 'production',
             };
-            
+
             res.cookie('jwtToken', token, options).status(200).json({
                 success: true,
                 User: user,
                 message: "Logged in successfully"
             });
-            
+
         } else {
             return res.status(403).json({
                 success: false,
@@ -145,7 +148,7 @@ exports.sendotp = async (req, res) => {
             message: "OTP Sent Successfully",
             otp,
         });
-        
+
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({ success: false, error: error.message });
@@ -156,8 +159,42 @@ exports.sendotp = async (req, res) => {
 exports.logout = (req, res) => {
     res.cookie('jwtToken', '', {
         httpOnly: true,
-        expires: new Date(Date.now() - 1), 
-        secure: process.env.NODE_ENV === 'production' 
+        expires: new Date(Date.now() - 1),
+        secure: process.env.NODE_ENV === 'production'
     });
     res.status(200).json({ success: true, message: 'Logged out successfully' });
+};
+
+
+exports.getUserById = async (req, res) => {
+    try {
+        const { userId } = req.body;
+
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: "User ID is required",
+            });
+        }
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            user,
+        });
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+        res.status(500).json({
+            success: false,
+            message: "An error occurred while fetching user data",
+        });
+    }
 };
