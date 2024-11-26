@@ -19,6 +19,8 @@ const SideBar = () => {
   const location = useLocation();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [avatarLink, setAvatarLink] = useState("https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg");
+
 
 
   const fetchUserData = async () => {
@@ -30,8 +32,11 @@ const SideBar = () => {
       if (response.data && response.data.user.email) {
         await setEmail(response.data.user.email);
         await setName(response.data.user.name);
+        await setAvatarLink(response.data.user.image);
+        console.log("avatar", avatarLink);
       } else {
         console.error('Error fetching user data:', response.data.message);
+
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -76,7 +81,7 @@ const SideBar = () => {
           <path strokeLinecap="round" strokeLinejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
         </svg>
         <div className="flex gap-x-4 items-center">
-          <img src={open ? logo1 : logo2} className={`cursor-pointer w-56 duration-500 ${open && 'rotate-[360deg]'}`} alt="Logo" />
+          <img src={open ? logo1 : logo2} className={`cursor-pointer w-56 duration-500 ${open }`} alt="Logo" />
         </div>
         <ul className="pt-6">
           <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center  mt-2`}>
@@ -90,21 +95,28 @@ const SideBar = () => {
             <span className={`${!open && 'hidden'} origin-left duration-200`}>Dashboard</span>
           </li>
           <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-9`}>
-            <TbMessage2 style={{ width: '30px', height: '30px' }} />
-            <span className={`${!open && 'hidden'} origin-left duration-200`}>Inbox</span>
+            <Link to='/chat' className='flex items-center gap-x-4'>
+              <TbMessage2 style={{ width: '30px', height: '30px' }} />
+              <span className={`${!open && 'hidden'} origin-left duration-200`}>Inbox</span>
+            </Link>
           </li>
-          <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2`}>
-            <TbUsersGroup style={{ width: '30px', height: '30px' }} />
-            <span className={`${!open && 'hidden'} origin-left duration-200`}>Communities</span>
-          </li>
-          <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2`}>
-            <TbSearch style={{ width: '30px', height: '30px' }} />
-            <span className={`${!open && 'hidden'} origin-left duration-200`}>Search</span>
-          </li>
-          {/* <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2`}>
-            <TbCircleChevronRight style={{ width: '30px', height: '30px' }} />
-            <span className={`${!open && 'hidden'} origin-left duration-200`}>About</span>
-          </li> */}
+          <Link to='/community' className='flex items-center gap-x-4'>
+
+            <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2`}>
+              <TbUsersGroup style={{ width: '30px', height: '30px' }} />
+              <span className={`${!open && 'hidden'} origin-left duration-200`}>Communities</span>
+            </li>
+          </Link>
+
+          <Link to='/search' className='flex items-center gap-x-4'>
+
+            <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2`}>
+              <TbSearch style={{ width: '30px', height: '30px' }} />
+              <span className={`${!open && 'hidden'} origin-left duration-200`}>Search</span>
+            </li>
+
+          </Link>
+
           <li className={`flex md:hidden rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2`}>
             <BsFire style={{ width: '30px', height: '30px' }} />
             <span className={`${!open && 'hidden'} origin-left duration-200`}>Popular</span>
@@ -119,7 +131,7 @@ const SideBar = () => {
         <Link to='/profile'>
           <div className={`absolute bottom-5 pl-5 flex items-center space-x-4 text-white`} >
 
-            <img className="w-12 h-12 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+            <img className="w-12 h-12 rounded-full" src={avatarLink} alt="Jese Leos avatar" />
             <div>
               <div className={`font-medium ${!open ? 'hidden' : 'block'} origin-left duration-200`}>
                 {name ? name : 'No name Found'}
