@@ -66,7 +66,7 @@ function PostForm() {
   }, []);
 
   const location = useLocation()
-  if (location.pathname === '/otp' || location.pathname === '/' || location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/profile'|| location.pathname === '/chat') return
+  if (location.pathname === '/otp' || location.pathname === '/' || location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/profile'|| location.pathname === '/chat'||location.pathname === '/community'||location.pathname === '/community/create') return
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
