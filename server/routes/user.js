@@ -25,10 +25,16 @@ router.get('/search', async (req, res) => {
     try {
         const { query } = req.query;
 
+        if (!query) {
+            return res.status(400).json({ message: 'Query parameter is required' });
+        }
+
         const users = await User.find({
-            name: { $regex: query, $options: 'i' },
-            email: { $regex: query, $options: 'i' },
-        }).select('name email image'); 
+            $or: [
+                { name: { $regex: `^${query}`, $options: 'i' } }, // Matches names starting with the query
+                { email: { $regex: `^${query}`, $options: 'i' } }, // Matches emails starting with the query
+            ],
+        }).select('name email image');
 
         if (!users.length) {
             return res.status(404).json({ message: 'No users found' });
@@ -40,6 +46,7 @@ router.get('/search', async (req, res) => {
         res.status(500).json({ message: 'Error searching users', error: error.message });
     }
 });
+
 
 // Testing protected route
 router.get('/test', auth, (req, res) => {
