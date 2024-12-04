@@ -3,16 +3,19 @@ const ChatModel = require('../models/ChatModel');
 exports.createChat = async(req,res)=> {
     try {
         const { members } = req.body;
-
+        // Create the chat (your logic here)
         const newChat = new ChatModel({ members });
         await newChat.save();
     
+        // Respond with success
         return res.json({ success: true, message: 'Chat created successfully', chat: newChat });
       } catch (error) {
         console.error('Error creating chat:', error);
         return res.status(500).json({ success: false, message: 'Failed to create chat' });
       }
 }
+
+// check if chat exists
 
 exports.userChats = async(req,res)=> {
     try {
@@ -37,9 +40,9 @@ exports.findChat = async(req,res)=> {
 
 exports.checkIfChatExists = async (req, res) => {
     try {
-        const { members } = req.body; 
+        const { members } = req.body; // members array should contain both user IDs
         const chat = await ChatModel.findOne({
-            members: { $all: members },
+            members: { $all: members }, // Check if both users are present in the chat members
         });
 
         if (chat) {
