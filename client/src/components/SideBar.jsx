@@ -19,6 +19,7 @@ const SideBar = () => {
   const location = useLocation();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [role, setRole] = useState('');
   const [avatarLink, setAvatarLink] = useState("https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg");
 
 
@@ -33,6 +34,8 @@ const SideBar = () => {
         await setEmail(response.data.user.email);
         await setName(response.data.user.name);
         await setAvatarLink(response.data.user.image);
+        await setRole(response.data.user.role);
+
         console.log("avatar", avatarLink);
       } else {
         console.error('Error fetching user data:', response.data.message);
@@ -76,12 +79,14 @@ const SideBar = () => {
 
   return (
     <div>
-      <div className={`${open ? 'w-80' : 'w-20 md:w-24'} bg-black min-h-screen border-r-2 border-gray-700 p-5 flex flex-col items-center pt-8 relative duration-300`}>
+      <div className={`${open ? 'w-80' : 'w-20 md:w-24'} z-20 bg-black min-h-screen border-r-2 border-gray-700 p-5 flex flex-col items-center pt-8 relative duration-300`}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="white" className={`absolute cursor-pointer font-bold -right-5 top-9 w-10 hidden md:block p-1 bg-gray-800 border-2 border-gray-700 rounded-full ${!open && 'rotate-180'}`} onClick={() => setOpen(!open)}>
           <path strokeLinecap="round" strokeLinejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
         </svg>
         <div className="flex gap-x-4 items-center">
-          <img src={open ? logo1 : logo2} className={`cursor-pointer w-56 duration-500 ${open }`} alt="Logo" />
+        <Link to='/'>
+          <img src={open ? logo1 : logo2} className={`cursor-pointer w-56 duration-500 ${open}`} alt="Logo" />
+        </Link>
         </div>
         <ul className="pt-6">
           <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center  mt-2`}>
@@ -90,10 +95,18 @@ const SideBar = () => {
               <span className={`${!open && 'hidden'} origin-left duration-200`}>Home</span>
             </Link>
           </li>
-          <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2 ${open && 'bg-light-white'}`}>
-            <TbLayoutDashboard style={{ width: '30px', height: '30px' }} />
-            <span className={`${!open && 'hidden'} origin-left duration-200`}>Dashboard</span>
-          </li>
+
+          {
+            role !== 'Visitor' && (
+              <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-2 ${open && 'bg-light-white'}`}>
+
+                <Link to='dashboard' className='flex items-center gap-x-4'>
+                  <TbLayoutDashboard style={{ width: '30px', height: '30px' }} />
+                  <span className={`${!open && 'hidden'} origin-left duration-200`}>Dashboard</span>
+                </Link>
+              </li>
+            )
+          }
           <li className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center gap-x-4 mt-9`}>
             <Link to='/chat' className='flex items-center gap-x-4'>
               <TbMessage2 style={{ width: '30px', height: '30px' }} />
@@ -129,7 +142,7 @@ const SideBar = () => {
       </div>
       <div >
         <Link to='/profile'>
-          <div className={`absolute bottom-5 pl-5 flex items-center space-x-4 text-white`} >
+          <div className={`absolute bottom-5 pl-5 flex items-center space-x-4 text-white z-20`} >
 
             <img className="w-12 h-12 rounded-full" src={avatarLink} alt="Jese Leos avatar" />
             <div>
