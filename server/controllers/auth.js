@@ -10,6 +10,13 @@ exports.signup = async (req, res) => {
     try {
         const { name, email, password, role, otp } = req.body;
 
+        if (!isNaN(name)) {
+            return res.status(400).json({
+                success: false,
+                message: "Name cannot be a number",
+            });
+        }
+
         if (!name || !email || !password || !otp) {
             return res.status(403).send({
                 success: false,
