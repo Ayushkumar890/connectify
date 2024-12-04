@@ -13,52 +13,73 @@ const Header = () => {
     }
   }, [location.pathname]);
 
-  if (
-    location.pathname === '/otp' ||
-    location.pathname === '/' ||
-    location.pathname === '/login' ||
-    location.pathname === '/signup'|| 
-    location.pathname === '/profile'|| 
-    location.pathname === '/chat'||
-    location.pathname === '/search'
-  ) return null;
+  // Regex to match paths like '/community/anything'
+  const hideHeaderPaths = [
+    '/otp',
+    '/',
+    '/login',
+    '/signup',
+    '/profile',
+    '/chat',
+    '/search',
+    '/community',
+    '/community/create',
+    '/dashboard',
+    '/community/myCommunities',
+    '/community/myCommunities/member',
+  ];
+
+  const isCommunityPathWithId = /^\/community\/[a-zA-Z0-9]+(\/members)?$/.test(location.pathname);
+
+  if (hideHeaderPaths.includes(location.pathname) || isCommunityPathWithId) {
+    return null;
+  }
 
   return (
-    <div className="w-full flex justify-center text-white bg-black border-gray-700 border-b-2">
-      <div className="flex w-full">
+    <div className="relative w-full flex justify-center text-white bg-black z-10 border-gray-700 border-b-2">
+      {/* Moving green line */}
+      <div
+        className={`absolute bottom-0 left-0 h-[4px] bg-green rounded-full transition-all duration-300`}
+        style={{
+          width: '20%',
+          transform: `translateX(${active === 'Your World' ? '75%' : '325%'})`,
+        }}
+      ></div>
+
+      <div className="flex w-full justify-center">
         {/* Your World */}
-          <div className="w-1/2 flex py-3 hover:bg-zinc-800 items-center justify-center">
-        <Link to="/home">
+        <div className="w-1/2">
+          <Link to="/home">
             <div
               onClick={() => setActive('Your World')}
-              className={`relative cursor-pointer w-full text-center pb-2 transition-all duration-300 ${active === 'Your World' ? 'text-white' : 'text-gray-400'
-                }`}
+              className={`flex py-3 hover:bg-zinc-800 items-center justify-center ${
+                active === 'Your World' ? 'text-white' : 'text-gray-400'
+              }`}
             >
-              Your World
-              {active === 'Your World' && (
-                <span className="absolute left-0 right-0 -bottom-[2px] mx-auto h-[4px] w-[70%] bg-green rounded-full transition-all duration-300"></span>
-              )}
+              <div className="relative cursor-pointer w-full text-center pb-2">
+                Your World
+              </div>
             </div>
-        </Link>
-          </div>
+          </Link>
+        </div>
 
         {/* My Post */}
-          <div className="w-1/2 flex py-3 hover:bg-zinc-800 items-center justify-center">
-        <Link to="/mypost">
+        <div className="w-1/2">
+          <Link to="/mypost">
             <div
               onClick={() => setActive('Explore')}
-              className={`relative cursor-pointer w-full text-center pb-2 transition-all duration-300 ${active === 'Explore' ? 'text-white' : 'text-gray-400'
-                }`}
+              className={`flex py-3 hover:bg-zinc-800 items-center justify-center ${
+                active === 'Explore' ? 'text-white' : 'text-gray-400'
+              }`}
             >
-              My Post
-              {active === 'Explore' && (
-                <span className="absolute left-0 right-0 -bottom-[2px] mx-auto h-[4px] w-[70%] bg-green rounded-full transition-all duration-300"></span>
-              )}
+              <div className="relative cursor-pointer w-full text-center pb-2">
+                My Post
+              </div>
             </div>
-        </Link>
-          </div>
+          </Link>
+        </div>
       </div>
-    </div >
+    </div>
   );
 };
 
