@@ -26,7 +26,11 @@ function Signup() {
     };
 
     const handleSignup = async () => {
-
+        if (!isNaN(name)) {
+            setMessage("Name cannot be a number");
+            return;
+        }
+    
         try {
             setLoading(true);
             const response = await axios.post('http://localhost:3000/api/auth/signup', { name, email, password, role, otp });
@@ -35,7 +39,6 @@ function Signup() {
                 setLoading(false);
                 navigate('/login');
             }, 2000);
-
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
                 setMessage(error.response.data.message);
@@ -46,6 +49,7 @@ function Signup() {
             console.error(error);
         }
     };
+    
     const messageColor = message === "User created successfully" ? 'green' : 'red';
     return (
         <div className='bg-black min-h-screen'>
