@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import validator from "validator";
 
 
@@ -15,6 +15,16 @@ function Signup() {
     const [emailError, setEmailError] = useState("");
 
     const navigate = useNavigate();
+
+    const location = useLocation();
+
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: location.state?.email || '', // Pre-fill email if provided
+        password: '',
+        otp: '',
+    });
 
 
     const validateEmail = (emailToValidate) => {
@@ -94,13 +104,14 @@ function Signup() {
                             <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor='Email'>Email address</label>
                             <input className="appearance-none block w-full bg-neutral-950 text-white font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"
                                 type="email"
-                                value={email}
+                                value={formData.email}
                                 onChange={(e) => {
                                     const newEmail = e.target.value;
                                     setEmail(newEmail);
                                     validateEmail(newEmail);
                                 }}
-                                placeholder="Enter your email"
+                                disabled
+                                // placeholder="Enter your email"
                                 required />
                             <div style={{ color: "red" }}> {emailError} </div>
                         </div>
