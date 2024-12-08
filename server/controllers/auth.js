@@ -125,42 +125,55 @@ exports.sendotp = async (req, res) => {
     try {
         const { email } = req.body;
 
+        // Check if the user is already registered
         const checkUserPresent = await User.findOne({ email });
         if (checkUserPresent) {
             return res.status(401).json({
                 success: false,
-                message: "User is Already Registered",
+                message: "User is already registered",
             });
         }
 
+        // Generate a new OTP
         let otp = otpGenerator.generate(6, {
             upperCaseAlphabets: false,
             lowerCaseAlphabets: false,
             specialChars: false,
         });
 
+        // Ensure OTP is unique in the database
         let result = await OTP.findOne({ otp });
         while (result) {
             otp = otpGenerator.generate(6, {
                 upperCaseAlphabets: false,
+                lowerCaseAlphabets: false,
+                specialChars: false,
             });
             result = await OTP.findOne({ otp });
         }
 
+        // Delete any existing OTP for the same email
+        await OTP.deleteMany({ email });
+
+        // Save the new OTP to the database
         const otpPayload = { email, otp };
         await OTP.create(otpPayload);
 
         res.status(200).json({
             success: true,
-            message: "OTP Sent Successfully",
-            otp,
+            message: "OTP sent successfully",
+            otp, // In production, this should not be sent in the response for security reasons
         });
 
     } catch (error) {
-        console.log(error.message);
-        return res.status(500).json({ success: false, error: error.message });
+        console.error("Error sending OTP:", error.message);
+        res.status(500).json({
+            success: false,
+            message: "Try again",
+        });
     }
 };
+
 
 
 exports.logout = (req, res) => {
