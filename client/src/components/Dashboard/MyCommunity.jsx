@@ -13,7 +13,7 @@ const MyCommunity = ({community}) => {
                         <h2 className='text-lg font-bold  '>{community.name}</h2>
                         <p className='py-5'>" {community.description} "</p>
                         <h2 className='text-[10px] text-green  font-semibold'> Category: {community.category}</h2>
-                        <h2 className='text-[10px] text-green font-semibold'>AMembers: {community.members.length || []}</h2>
+                        <h2 className='text-[10px] text-green font-semibold'>Members: {community.members.length || []}</h2>
                     </div>
                 </div>
             </button>
