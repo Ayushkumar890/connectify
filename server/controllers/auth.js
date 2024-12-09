@@ -90,7 +90,7 @@ exports.login = async (req, res) => {
         };
 
         if (await bcrypt.compare(password, user.password)) {
-            const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+            const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "3h" });
             const options = {
                 expires: new Date(Date.now() + 3 * 60 * 60 * 1000),
                 httpOnly: true,
