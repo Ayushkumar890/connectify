@@ -14,7 +14,7 @@ function Login() {
 
     const validateEmail = (emailToValidate) => {
         if (!validator.isEmail(emailToValidate)) {
-            setEmailError("Please, enter a valid email!");
+            setEmailError("Please enter a valid email!");
         } else {
             setEmailError("");
         }
