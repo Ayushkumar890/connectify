@@ -100,7 +100,7 @@ const AdminDashboard = () => {
         </div>
       ) : (
       
-        <p>DOnt have any community</p>
+        <p>Don't have any community</p>
         
       )}
     </div>
