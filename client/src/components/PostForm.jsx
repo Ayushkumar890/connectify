@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { TbCirclePlus } from 'react-icons/tb'; // Import the icon
 import axios from 'axios';
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 function PostForm() {
   const [showForm, setShowForm] = useState(false);
   const [user, setUser] = useState(null); // State to store the user
   const formRef = useRef(null);
+  const params = useParams();
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -66,7 +68,7 @@ function PostForm() {
   }, []);
 
   const location = useLocation()
-  if (location.pathname === '/otp' || location.pathname === '/' || location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/profile'|| location.pathname === '/chat'||location.pathname === '/community'||location.pathname === '/community/create') return
+  if (params.communityId || location.pathname === '/otp' || location.pathname === '/' || location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/profile'|| location.pathname === '/chat'||location.pathname === '/community'||location.pathname === '/community/create'||location.pathname === 'community/:communityId') return
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
