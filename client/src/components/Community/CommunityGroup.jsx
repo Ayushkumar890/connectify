@@ -13,6 +13,7 @@ const CommunityGroup = () => {
   const [newMessage, setNewMessage] = useState('');
   const [user, setUser] = useState(null);
   const [userCache, setUserCache] = useState({}); // Cache for sender details
+  const [communityName, setCommunityName] = useState(''); // Cache for sender details
 
   const fetchUserData = async (senderId) => {
     if (userCache[senderId]) {
@@ -98,11 +99,26 @@ const CommunityGroup = () => {
       handleSendMessage();
     }
   };
+  
+  useEffect(() => {
+    const fetchCommunityName = async () => {
+      try {
+        const response = await axios.post(`http://localhost:3000/community/${communityId}`, {
+          communityId,
+        });
+        setCommunityName(response.data.data.name);
+        console.log('Community:', response.data.data);
+      } catch (error) {
+        console.error('Error fetching community name:', error);
+      }
+    };
+    fetchCommunityName();
+  }, [communityId]);
 
   return (
     <div className="flex flex-col h-[calc(110vh-100px)] bg-transparent text-white">
       <div className="flex gap-5 border-b border-gray-600 p-4">
-        <h3 className="flex justify-center text-2xl font-semibold items-center">Community Chat</h3>
+        <h3 className="flex justify-center text-2xl font-semibold items-center">{communityName}</h3>
       </div>
 
       <div className="messages-container flex-grow overflow-y-auto p-4">
@@ -114,7 +130,7 @@ const CommunityGroup = () => {
                   msg.senderId === user._id ? 'bg-blue-800' : 'bg-gray-700'
                 }`}
               >
-                <p className="text-xs text-gray-400">{msg.senderName || 'Loading...'}</p>
+                <p className="text-xs text-gray-400">{msg.senderId === user._id? 'You': msg.senderName || 'Loading...'}</p>
                 <p>{msg.text}</p>
                 <span className="text-xs text-gray-400">{format(msg.createdAt)}</span>
               </div>
