@@ -101,12 +101,12 @@ exports.getUserCommunities = async (req, res) => {
         .populate("creator", "name email") ; // Populate `members` with specific fields
   
       // Check if communities are found
-      if (!userCommunities.length) {
-        return res.status(404).json({
-          success: false,
-          message: "No communities found for the specified user.",
-        });
-      }
+    //   if (!userCommunities.length) {
+    //     return res.status(404).json({
+    //       success: false,
+    //       message: "No communities found for the specified user.",
+    //     });
+    //   }
       res.status(200).json({
         success: true,
         communities: userCommunities,
@@ -232,3 +232,32 @@ exports.getGroupMessages = async (req, res) => {
     }
   };
   
+
+  
+exports.getCommunityById =  async (req, res) => {
+    const { communityId } = req.body;
+
+  try {
+    // Validate input
+    if (!communityId) {
+      return res.status(400).json({ success: false, message: 'Community ID is required' });
+    }
+
+    // Fetch the community by ID
+    const community = await Community.findById(communityId);
+
+    if (!community) {
+      return res.status(404).json({ success: false, message: 'Community not found' });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: {
+        name: community.name,
+      },
+    });
+  } catch (error) {
+    console.error('Error fetching community:', error);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+}
