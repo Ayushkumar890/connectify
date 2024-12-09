@@ -2,6 +2,8 @@ const express = require('express');
 const Community = require('../models/Community');
 const User = require('../models/user');
 const Group = require('../models/Group')
+const GroupChat = require('../models/GroupChat');
+const GroupChatModel = require('../models/GroupChat');
 exports.createCommunity = async (req, res) => {
     try {
         const { userId, name, description, category } = req.body;
@@ -102,7 +104,7 @@ exports.getUserCommunities = async (req, res) => {
       if (!userCommunities.length) {
         return res.status(404).json({
           success: false,
-          message: "No communities .",
+          message: "No communities found for the specified user.",
         });
       }
       res.status(200).json({
@@ -155,30 +157,58 @@ exports.getCommunityGroup = async (req, res) => {
 };
 
 exports.sendGroupMessage = async (req, res) => {
-    try {
-      const { groupChatId, senderId, text } = req.body;
-  
-      const groupChat = await GroupChatModel.findById(groupChatId);
+  try {
+      const { communityId, senderId, text } = req.body;
+
+      if (!communityId || !senderId || !text) {
+          return res.status(400).json({
+              success: false,
+              message: 'communityId, senderId, and text are required.',
+          });
+      }
+
+      // Find the group chat by communityId
+      let groupChat = await GroupChat.findOne({ communityId });
+
+      // If group chat doesn't exist, create one
+      if (!groupChat) {
+          groupChat = new GroupChat({ communityId, messages: [] });
+      }
+
+      // Add the new message
       groupChat.messages.push({ senderId, text });
+
+      // Save the updated document
       await groupChat.save();
-  
+
       res.status(200).json({ success: true, message: 'Message sent successfully!' });
-    } catch (error) {
+  } catch (error) {
+      console.error('Error sending group message:', error);
       res.status(500).json({ success: false, error: error.message });
-    }
-  };
-  
-  exports.getGroupMessages = async (req, res) => {
-    try {
-      const { groupChatId } = req.params;
-  
-      const groupChat = await GroupChatModel.findById(groupChatId).populate('messages.senderId', 'name');
-      res.status(200).json({ success: true, messages: groupChat.messages });
-    } catch (error) {
+  }
+};
+
+exports.getGroupMessages = async (req, res) => {
+  try {
+      const { communityId } = req.params;
+
+      if (!communityId) {
+          return res.status(400).json({
+              success: false,
+              message: 'communityId is required.',
+          });
+      }
+
+      // Fetch all messages for the community
+      const messages = await GroupChatModel.find({ communityId }).sort({ createdAt: 1 });
+      console.log('Fetched messages:', messages); // Debugging line
+
+      res.status(200).json({ success: true, data: messages });
+  } catch (error) {
+      console.error('Error fetching group messages:', error);
       res.status(500).json({ success: false, error: error.message });
-    }
-  };
-  
+  }
+};
 
 
 
