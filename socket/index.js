@@ -21,7 +21,24 @@ function initializeSocket(server) {
       io.emit("get-users", activeUsers);
     });
 
-    // Event: Send a message
+    // Event: User joins a community group (room)
+    socket.on("joinCommunityGroup", ({ communityId }) => {
+      socket.join(communityId); // Join the room for group chat
+      console.log(`User ${socket.id} joined community ${communityId}`);
+    });
+
+    // Event: Send a message (group chat)
+    socket.on("sendGroupMessage", (messageData) => {
+      const { communityId, senderId, text } = messageData;
+      // Broadcast the message to all users in the room (community group)
+      io.to(communityId).emit("receiveGroupMessage", {
+        senderId,
+        text,
+        createdAt: new Date(),
+      });
+    });
+
+    // Event: Send a message (one-to-one chat)
     socket.on("send-message", (data) => {
       const { receiverId } = data;
       const user = activeUsers.find((user) => user.userId === receiverId);
