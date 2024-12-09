@@ -1,27 +1,11 @@
-
 const mongoose = require('mongoose');
-const Community = require('./Community');
-const GroupChat = new mongoose.Schema(
-    {
-        CommunityId:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Community",
-        },
-        senderId:{
-            type: String,
-        },
-        text:{
-            type: String,
-        },
 
-    },
-    {
-        timestamps: true,
-    },
-    {
-        
-    }
-)
+const GroupChatSchema = new mongoose.Schema({
+  communityId: { type: mongoose.Schema.Types.ObjectId, ref: 'Community', required: true },
+  senderId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  text: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+});
 
-const GroupChatModel = mongoose.model("GroupChat", GroupChat);
+const GroupChatModel = mongoose.model('GroupChat', GroupChatSchema);
 module.exports = GroupChatModel;
