@@ -98,7 +98,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
       </div>
       <div className="flex p-4 items-center mt-4">
         <InputEmoji value={newMessage} onChange={setNewMessage} />
-        <button onClick={handleSend} className="bg-green rounded-xl px-6 py-2 ml-2">
+        <button onSubmit={handleSend} className="bg-green rounded-xl px-6 py-2 ml-2">
           Send
         </button>
       </div>
