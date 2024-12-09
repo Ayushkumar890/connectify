@@ -6,7 +6,8 @@ import validator from "validator";
 
 function Signup() {
     const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const location = useLocation();
+    const [email, setEmail] = useState(location.state?.email || ''); // Pre-fill email state
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('Visitor');
     const [otp, setOtp] = useState('');
@@ -15,17 +16,6 @@ function Signup() {
     const [emailError, setEmailError] = useState("");
 
     const navigate = useNavigate();
-
-    const location = useLocation();
-
-
-    const [formData, setFormData] = useState({
-        name: '',
-        email: location.state?.email || '', // Pre-fill email if provided
-        password: '',
-        otp: '',
-    });
-
 
     const validateEmail = (emailToValidate) => {
         if (!validator.isEmail(emailToValidate)) {
@@ -36,11 +26,16 @@ function Signup() {
     };
 
     const handleSignup = async () => {
+        if (!name || !email || !password || !otp) {
+            setMessage("All fields are required");
+            return;
+        }
+
         if (!isNaN(name)) {
             setMessage("Name cannot be a number");
             return;
         }
-    
+
         try {
             setLoading(true);
             const response = await axios.post('http://localhost:3000/api/auth/signup', { name, email, password, role, otp });
@@ -59,8 +54,9 @@ function Signup() {
             console.error(error);
         }
     };
-    
+
     const messageColor = message === "User created successfully" ? 'green' : 'red';
+
     return (
         <div className='bg-black min-h-screen'>
             <div className="text-center pt-4 ">
@@ -102,19 +98,20 @@ function Signup() {
                         </div>
                         <div className="w-full md:w-full px-3 mb-6">
                             <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor='Email'>Email address</label>
-                            <input className="appearance-none block w-full bg-neutral-950 text-white font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"
+                            <input
+                                className="appearance-none block w-full bg-neutral-950 text-white font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"
                                 type="email"
-                                value={formData.email}
+                                value={email}
                                 onChange={(e) => {
-                                    const newEmail = e.target.value;
-                                    setEmail(newEmail);
-                                    validateEmail(newEmail);
+                                    setEmail(e.target.value);
+                                    validateEmail(e.target.value);
                                 }}
-                                disabled
-                                // placeholder="Enter your email"
-                                required />
-                            <div style={{ color: "red" }}> {emailError} </div>
+                                placeholder="Enter your email"
+                                required
+                            />
+                            <div style={{ color: "red" }}>{emailError}</div>
                         </div>
+
 
                         <div className="w-full md:w-full px-3 mb-6">
                             <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor='Password'>Password</label>
