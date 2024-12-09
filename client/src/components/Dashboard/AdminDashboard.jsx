@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MyCommunity from "./MyCommunity";
-import { PiSmileySadLight } from "react-icons/pi";
+import { FaArrowRight } from "react-icons/fa";
+
+import { Link } from "react-router-dom";
 
 
 const AdminDashboard = () => {
@@ -66,7 +68,7 @@ const AdminDashboard = () => {
     return <div>Loading...</div>;
   }
 
-  if(role=='Visitor'){
+  if(role==='Visitor'){
     return <div>
       
     </div>
@@ -77,6 +79,19 @@ const AdminDashboard = () => {
 
   return (
     <div className="text-white">
+    <div className="pt-12 flex">
+    <Link to="/community/create" className="border border-green 
+    bg-green px-3 py-2 text-lg" >
+    <span className="flex justify-center items-center gap-2 ">
+
+      Create new community <FaArrowRight />
+    </span>
+
+    </Link>
+    </div>
+    <div className=" inline-block border-b-2 rounded-full text-xl px-3 border-red-600 mt-10 mb-5">
+      Yours communities
+    </div>
       {myCommunities.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {myCommunities.map((community) => (
