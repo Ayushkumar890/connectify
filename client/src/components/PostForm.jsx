@@ -68,7 +68,7 @@ function PostForm() {
   }, []);
 
   const location = useLocation()
-  if (params.communityId || location.pathname === '/otp' || location.pathname === '/' || location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/profile'|| location.pathname === '/chat'||location.pathname === '/community'||location.pathname === '/community/create'||location.pathname === 'community/:communityId'|| location.pathname === '/dashboard') return
+  if (params.communityId || location.pathname === '/otp' || location.pathname === '/' || location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/profile'|| location.pathname === '/chat'||location.pathname === '/community'||location.pathname === '/community/create'||location.pathname === 'community/:communityId'|| location.pathname === '/dashboard'||location.pathname === '/search') return
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
