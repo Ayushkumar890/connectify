@@ -89,7 +89,7 @@ const AdminDashboard = () => {
 
     </Link>
     </div>
-    <div className=" inline-block border-b-2 rounded-full text-xl px-3 border-red-600 mt-10 mb-5">
+    <div className=" inline-block border-b-2 rounded-full text-xl px-3 border-gray-600 mt-10 mb-5">
       Yours communities
     </div>
       {myCommunities.length > 0 ? (
