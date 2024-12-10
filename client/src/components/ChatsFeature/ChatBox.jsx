@@ -48,13 +48,23 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
     }
   }, [receivedMessage, chat?._id]);
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
   const handleSend = async () => {
+    if (!newMessage.trim()) {
+      return; // Prevent sending blank or whitespace-only messages
+    }
+  
     const message = {
       senderId: currentUser,
       text: newMessage,
       chatId: chat?._id,
     };
-
+  
     try {
       const response = await axios.post(
         "http://localhost:3000/message",
@@ -66,29 +76,33 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
     } catch (error) {
       console.error("Error sending message:", error);
     }
-
+  
     const receiverId = chat?.members.find((id) => id !== currentUser);
     setSendMessage({ ...message, receiverId });
   };
+  
 
   return (
-    <div className=" flex flex-col h-[calc(113vh-100px)]">
-      <div className='flex gap-5 border-b border-gray-600 p-4 '>
-        <img className='w-12 h-12 rounded-full' src={userData?.image} alt="avatar" />
+    <div className=" flex flex-col h-[calc(110vh-100px)]">
+    <div className='flex gap-5 border-b border-gray-600 p-4 '>
+                <img className='w-12 h-12 rounded-full'  src={userData?.image} alt="avatar" />
+                
 
-        <h3 className="flex justify-center text-2xl font-semibold items-center " >{userData?.name}</h3>
-      </div>
-
+                <h3 className="flex justify-center text-2xl font-semibold items-center " >{userData?.name}</h3>
+            </div>
+      
       <div className="messages-container flex-grow overflow-y-auto p-4">
         {messages.map((msg, index) => (
-          <div
+          <div 
             key={index}
-            className={`flex mb-2 ${msg.senderId === currentUser ? "justify-end" : "justify-start"
-              }`}
+            className={`flex mb-2 ${
+              msg.senderId === currentUser ? "justify-end" : "justify-start"
+            }`}
           >
             <div
-              className={`p-3 rounded-lg max-w-xs ${msg.senderId === currentUser ? "bg-blue-800" : "bg-gray-700"
-                }`}
+              className={`p-3 rounded-lg max-w-xs ${
+                msg.senderId === currentUser ? "bg-blue-800" : "bg-gray-700"
+              }`}
             >
               <p>{msg.text}</p>
               <span className="text-xs text-gray-400">{format(msg.createdAt)}</span>
@@ -97,8 +111,9 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
         ))}
       </div>
       <div className="flex p-4 items-center mt-4">
-        <InputEmoji value={newMessage} onChange={setNewMessage} />
-        <button onSubmit={handleSend} className="bg-green rounded-xl px-6 py-2 ml-2">
+          
+          <InputEmoji value={newMessage} onChange={setNewMessage}  onKeyDown={handleKeyDown}/>
+        <button onClick={handleSend}  className="bg-green rounded-xl px-6 py-2 ml-2">
           Send
         </button>
       </div>
