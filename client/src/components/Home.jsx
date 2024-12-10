@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo1 from "../Assets/logo-no-background.png";
-import main1 from "../Assets/main4.png";
+import main2 from "../Assets/main2.png";
+import About from "./About";
+import Footer from "./Footer";
 
 function Home() {
   const navigate = useNavigate();
@@ -43,10 +45,24 @@ function Home() {
               </div>
             </div>
           </div>
-          <div className=" w-full md:w-1/2 flex justify-center items-center  p-5">
-            <img src={main1} alt="" />
+          <div className="w-full md:w-1/2 flex justify-center items-center p-10">
+            <div className="relative">
+              <div className="absolute top-0 left-0 w-full h-full rounded-lg bg-green opacity-20 blur-xl"></div>
+              <img
+                src={main2}
+                alt="Main Visual"
+                className="relative z-10 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-500"
+              />
+            </div>
           </div>
         </div>
+
+      </div>
+      <div id="about">
+        <About />
+      </div>
+      <div id="footer">
+        <Footer />
       </div>
     </>
   );
