@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo1 from "../Assets/logo-no-background.png";
 import main2 from "../Assets/main2.png";
 import About from "./About";
@@ -13,12 +13,26 @@ function Home() {
   const handlelogin = () => {
     navigate("login");
   };
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <>
       <div>
         <nav className="w-full px-6 md:px-16 py-5 flex  justify-between">
           <div className="w-[50%] flex  items-center">
-            <img className="w-[200px]" src={logo1} alt="" />
+            <img className="w-[200px]" src={logo1} alt="home" />
+          </div>
+          <div className="flex items-center ">
+            <button
+              onClick={() => scrollToSection("about")}
+              className="text-center px-3 py-2 rounded-md border-green border-2"
+            >
+              ABOUT
+            </button>
           </div>
           <div className="border-2 flex justify-center items-center  border-green text-center px-3 py-2  rounded-md">
             <button onClick={handlesignup}>GET STARTED</button>
@@ -47,7 +61,7 @@ function Home() {
           </div>
           <div className="w-full md:w-1/2 flex justify-center items-center p-10">
             <div className="relative">
-              <div className="absolute top-0 left-0 w-full h-full rounded-lg bg-green opacity-20 blur-xl"></div>
+              <div className="absolute top-0 left-0 w-full h-full rounded-full bg-green opacity-20 blur-xl"></div>
               <img
                 src={main2}
                 alt="Main Visual"
