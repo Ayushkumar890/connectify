@@ -12,9 +12,9 @@ const AllMembers = () => {
     const fetchMembers = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/community/${communityId}/members`);
-        console.log('API response:', response.data);
+        // console.log('API response:', response.data);
         setMembers(response.data.community.members);
-        console.log('Members data fetched:', response.data.community);
+        // console.log('Members data fetched:', response.data.community);
         setLoading(false);
       } catch (err) {
         setError('Failed to fetch members');

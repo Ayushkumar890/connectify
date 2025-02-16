@@ -46,7 +46,7 @@ const SideBar = () => {
       const response = await axios.get('http://localhost:3000/api/auth/logout', {
         withCredentials: true,
       });
-      console.log(response.data.message);
+      // console.log(response.data.message);
       window.location.href = '/login';
     } catch (error) {
       console.error('Error logging out:', error);

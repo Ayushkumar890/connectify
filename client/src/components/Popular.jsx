@@ -15,9 +15,9 @@ const Popular = () => {
                     withCredentials: true,
                 });
 
-                console.log("API response:", response.data);
+                // console.log("API response:", response.data);
                 setCommunities(response.data.communities);
-                console.log("Communities data fetched:", response.data.communities);
+                // console.log("Communities data fetched:", response.data.communities);
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }

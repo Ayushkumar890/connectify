@@ -107,7 +107,7 @@ const CommunityGroup = () => {
           communityId,
         });
         setCommunityName(response.data.data.name);
-        console.log('Community:', response.data.data);
+        // console.log('Community:', response.data.data);
       } catch (error) {
         console.error('Error fetching community name:', error);
       }

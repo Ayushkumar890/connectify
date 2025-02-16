@@ -18,10 +18,10 @@ const CreateCommunity = () => {
           withCredentials: true,
         });
 
-        console.log("API response:", response.data); // Debugging: log the full response
+        // console.log("API response:", response.data); // Debugging: log the full response
         if (response.data && response.data.user.email) {
           setUser(response.data.user);
-          console.log("User data fetched:", response.data.user._id);
+          // console.log("User data fetched:", response.data.user._id);
         } else {
           console.error("Error fetching user data:", response.data.message);
         }
@@ -53,7 +53,7 @@ const CreateCommunity = () => {
         category,
         userId: user._id,
       });
-      console.log(response.data);
+      // console.log(response.data);
       alert(response.data.message);
       navigate('/community');
     } catch (error) {

@@ -31,7 +31,7 @@ function PostForm() {
     const title = e.target.title.value;
     const description = e.target.description.value;
 
-    console.log({ title, description }); // Ensure no 'id' field is being sent
+    // console.log({ title, description }); // Ensure no 'id' field is being sent
 
     try {
       const response = await axios.post(
@@ -39,7 +39,7 @@ function PostForm() {
         { title, description },
         { withCredentials: true }
       );
-      console.log("Post created:", response.data);
+      // console.log("Post created:", response.data);
       setShowForm(false);
       window.location.reload(true); // Reload from server (bypass cache)
     } catch (error) {

@@ -15,7 +15,7 @@ const UserProfile = () => {
                 withCredentials: true 
             });
             
-            console.log('API response:', response.data); // Debugging: log the full response
+            // console.log('API response:', response.data); // Debugging: log the full response
             if (response.data && response.data.user.email) {
                 await setEmail(response.data.user.email);
                 await setName(response.data.user.name);

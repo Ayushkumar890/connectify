@@ -6,7 +6,7 @@ require('dotenv').config();
 
 exports.setposts = async (req, res) => {
     try {
-        console.log("User in setposts handler:", req.user); 
+        // console.log("User in setposts handler:", req.user); 
         const { title, description } = req.body;
         const userId = req.user._id;
 
@@ -17,7 +17,7 @@ exports.setposts = async (req, res) => {
         });
 
         await newPost.save();
-        console.log("Post created successfully:", newPost);
+        // console.log("Post created successfully:", newPost);
         
 
         res.status(201).json({ success: true, data: newPost });

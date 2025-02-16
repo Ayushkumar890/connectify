@@ -6,7 +6,7 @@ const Conversation = ({ data, currentUserId }) => {
 
     useEffect(() => {
         const fetchUserData = async () => {
-            console.log(currentUserId);
+            // console.log(currentUserId);
             const otherUserId = data.members.find((id) => id !== currentUserId); // Get the other person's ID
 
             try {
@@ -16,7 +16,7 @@ const Conversation = ({ data, currentUserId }) => {
                     { withCredentials: true }
                 );
                 setUserData(response.data.user);
-                console.log('User data fetched:', response.data.user);
+                // console.log('User data fetched:', response.data.user);
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }

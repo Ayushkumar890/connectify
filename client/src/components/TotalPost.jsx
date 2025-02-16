@@ -23,7 +23,7 @@ const TotalPost = () => {
       setLoading(true); 
       try {
         const response = await axios.get('http://localhost:3000/api/auth/posts');
-        console.log('Response Data:', response.data); 
+        // console.log('Response Data:', response.data); 
         if (response.data.success) {
           setPosts(response.data.data); 
         } else {

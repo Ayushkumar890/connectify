@@ -10,21 +10,21 @@ function initializeSocket(server) {
   let activeUsers = [];
 
   io.on("connection", (socket) => {
-    console.log(`New user connected: ${socket.id}`);
+    // console.log(`New user connected: ${socket.id}`);
 
     // Event: Add a new user
     socket.on("new-user-add", (newUserId) => {
       if (!activeUsers.some((user) => user.userId === newUserId)) {
         activeUsers.push({ userId: newUserId, socketId: socket.id });
       }
-      console.log("Active Users: ", activeUsers);
+      // console.log("Active Users: ", activeUsers);
       io.emit("get-users", activeUsers);
     });
 
     // Event: User joins a community group (room)
     socket.on("joinCommunityGroup", ({ communityId }) => {
       socket.join(communityId); // Join the room for group chat
-      console.log(`User ${socket.id} joined community ${communityId}`);
+      // console.log(`User ${socket.id} joined community ${communityId}`);
     });
 
     // Event: Send a message (group chat)
@@ -50,7 +50,7 @@ function initializeSocket(server) {
     // Event: Disconnect
     socket.on("disconnect", () => {
       activeUsers = activeUsers.filter((user) => user.socketId !== socket.id);
-      console.log(`User disconnected: ${socket.id}`);
+      // console.log(`User disconnected: ${socket.id}`);
       io.emit("get-users", activeUsers);
     });
   });

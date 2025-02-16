@@ -111,7 +111,7 @@ exports.getUserCommunities = async (req, res) => {
         success: true,
         communities: userCommunities,
       });
-      console.log("userCommunitty", userCommunities);
+      // console.log("userCommunitty", userCommunities);
     } catch (error) {
       console.error("Error fetching user communities:", error.message);
       res.status(500).json({
@@ -201,7 +201,7 @@ exports.getGroupMessages = async (req, res) => {
 
       // Fetch all messages for the community
       const messages = await GroupChatModel.find({ communityId }).sort({ createdAt: 1 });
-      console.log('Fetched messages:', messages); // Debugging line
+      // console.log('Fetched messages:', messages); // Debugging line
 
       res.status(200).json({ success: true, data: messages });
   } catch (error) {
