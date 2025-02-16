@@ -8,7 +8,7 @@ import {
   TbMessage2,
   TbLogout,
 } from 'react-icons/tb';
-import { BsFire } from 'react-icons/bs';
+// import { BsFire } from 'react-icons/bs';
 import logo1 from '../Assets/logo-no-background.png';
 import logo2 from '../Assets/small-logo.png';
 import axios from 'axios';
@@ -46,7 +46,7 @@ const SideBar = () => {
       const response = await axios.get('http://localhost:3000/api/auth/logout', {
         withCredentials: true,
       });
-      // console.log(response.data.message);
+      console.log(response.data.message);
       window.location.href = '/login';
     } catch (error) {
       console.error('Error logging out:', error);

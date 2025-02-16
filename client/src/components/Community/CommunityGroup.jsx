@@ -73,7 +73,7 @@ const CommunityGroup = () => {
     return () => {
       socket.off('receiveGroupMessage');
     };
-  }, [communityId, userCache]);
+  }, [communityId, fetchUserData, userCache]);
 
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;

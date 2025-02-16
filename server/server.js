@@ -1,3 +1,4 @@
+
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -7,6 +8,10 @@ const http = require('http');
 const initializeSocket = require("../socket/index");
 const app = express();
 const server = http.createServer(app);
+const path = require("path")
+
+const _dirname = path.resolve();
+
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -15,7 +20,7 @@ app.use(compression());
 
 app.use(cors({
     origin: 'http://localhost:3001',
-    credentials: true 
+    credentials: true
 }));
 
 require('./config/database').connect();
@@ -28,11 +33,19 @@ const communityRoutes = require('./routes/community')
 
 
 app.use('/api/auth', userRoutes);
-app.use('/chat',chatRoutes);
-app.use('/message',messageRoutes);
+app.use('/chat', chatRoutes);
+app.use('/message', messageRoutes);
 app.use('/community', communityRoutes);
 initializeSocket(server);
+app.use(express.static(path.join(_dirname, "/client/build")));
+
+app.get('*', (_, res) => {
+    res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
+});
+
+
+
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
-});
+})

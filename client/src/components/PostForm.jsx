@@ -16,12 +16,12 @@ function PostForm() {
         const response = await axios.get('http://localhost:3000/api/auth/posts'); // Adjust URL
         setUser(response.data);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error("Error fetching user data:", error,user);
       }
     };
 
     fetchUser();
-  }, []);
+  }, [user]);
 
   const handleAddPostClick = () => {
     setShowForm(true);
@@ -39,7 +39,7 @@ function PostForm() {
         { title, description },
         { withCredentials: true }
       );
-      // console.log("Post created:", response.data);
+      console.log("Post created:", response.data);
       setShowForm(false);
       window.location.reload(true); // Reload from server (bypass cache)
     } catch (error) {

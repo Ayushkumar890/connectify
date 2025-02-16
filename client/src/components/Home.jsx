@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import logo1 from "../Assets/logo-no-background.png";
 import main2 from "../Assets/main2.png";
 import About from "./About";
