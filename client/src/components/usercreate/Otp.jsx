@@ -26,7 +26,7 @@ function Otp() {
         }
         try {
             setLoading(true);
-            const response = await axios.post('http://localhost:3000/api/auth/sendotp', { email });
+            const response = await axios.post('https://connectify-93bj.onrender.com/api/auth/sendotp', { email });
             setMessage(response.data.message);
             if (response.data.success) {
                 setTimeout(() => {

@@ -13,7 +13,7 @@ function PostForm() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/auth/posts'); // Adjust URL
+        const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/posts'); // Adjust URL
         setUser(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error,user);
@@ -35,7 +35,7 @@ function PostForm() {
 
     try {
       const response = await axios.post(
-        'http://localhost:3000/api/auth/posts',
+        'https://connectify-93bj.onrender.com/api/auth/posts',
         { title, description },
         { withCredentials: true }
       );

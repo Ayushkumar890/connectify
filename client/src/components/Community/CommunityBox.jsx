@@ -8,7 +8,7 @@ const navigate = useNavigate();
     useEffect(() => {
         const fetchUserData = async () => {
           try {
-            const response = await axios.get("http://localhost:3000/api/auth/profile", {
+            const response = await axios.get("https://connectify-93bj.onrender.com/api/auth/profile", {
               withCredentials: true,
             });
     
@@ -28,7 +28,7 @@ const navigate = useNavigate();
       const handleJoinCommunity = async () => {
         try {
           const response = await axios.post(
-            "http://localhost:3000/community/join",
+            "https://connectify-93bj.onrender.com/community/join",
             { communityId: community._id, userId: userId },
             { withCredentials: true }
           );

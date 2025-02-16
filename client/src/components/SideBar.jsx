@@ -25,7 +25,7 @@ const SideBar = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/auth/profile', {
+      const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/profile', {
         withCredentials: true,
       });
       if (response.data && response.data.user.email) {
@@ -43,7 +43,7 @@ const SideBar = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/auth/logout', {
+      const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/logout', {
         withCredentials: true,
       });
       console.log(response.data.message);

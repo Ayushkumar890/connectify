@@ -14,7 +14,7 @@ const Search = () => {
         setError('');
 
         try {
-            const response = await axios.get(`http://localhost:3000/api/auth/search?query=${query}`);
+            const response = await axios.get(`https://connectify-93bj.onrender.com/api/auth/search?query=${query}`);
             setUsers(response.data);
         } catch (err) {
             if (err.response && err.response.status === 404) {

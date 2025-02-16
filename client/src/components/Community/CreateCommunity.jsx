@@ -14,7 +14,7 @@ const CreateCommunity = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/auth/profile", {
+        const response = await axios.get("https://connectify-93bj.onrender.com/api/auth/profile", {
           withCredentials: true,
         });
 
@@ -47,7 +47,7 @@ const CreateCommunity = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/community/create", {
+      const response = await axios.post("https://connectify-93bj.onrender.com/community/create", {
         name,
         description,
         category,

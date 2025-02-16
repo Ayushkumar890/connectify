@@ -13,7 +13,7 @@ const Blog = ({ post, currentUser }) => {
     try {
       const userId = post?.name?._id;
       const response = await axios.post(
-        "http://localhost:3000/api/auth/user",
+        "https://connectify-93bj.onrender.com/api/auth/user",
         { userId },
         { withCredentials: true }
       );
@@ -26,7 +26,7 @@ const Blog = ({ post, currentUser }) => {
 
   const checkChatExists = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/chat/check', {
+      const response = await axios.post('https://connectify-93bj.onrender.com/chat/check', {
         members: [currentUser._id, post.name._id], 
       });
 
@@ -43,7 +43,7 @@ const Blog = ({ post, currentUser }) => {
 
   const createChat = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/chat/', {
+      const response = await axios.post('https://connectify-93bj.onrender.com/chat/', {
         members: [currentUser._id, post.name._id],
       });
 

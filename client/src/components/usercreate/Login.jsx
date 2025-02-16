@@ -24,7 +24,7 @@ function Login() {
         event.preventDefault();
         try {
             setLoading(true);
-            const response = await axios.post('http://localhost:3000/api/auth/login', { email, password }, { withCredentials: true });
+            const response = await axios.post('https://connectify-93bj.onrender.com/api/auth/login', { email, password }, { withCredentials: true });
             setMessage(response.data.message);
 
             setTimeout(() => {

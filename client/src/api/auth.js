@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api/auth'; 
+const API_URL = 'https://connectify-93bj.onrender.com/api/auth'; 
 
 export const login = (data) => axios.post(`${API_URL}/login`, data);
 export const signup = (data) => axios.post(`${API_URL}/signup`, data);

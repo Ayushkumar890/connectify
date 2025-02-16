@@ -13,7 +13,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
       const userId = chat?.members.find((id) => id !== currentUser);
       try {
         const response = await axios.post(
-          "http://localhost:3000/api/auth/user",
+          "https://connectify-93bj.onrender.com/api/auth/user",
           { userId },
           { withCredentials: true }
         );
@@ -30,7 +30,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
     const fetchMessages = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/message/${chat?._id}`,
+          `https://connectify-93bj.onrender.com/message/${chat?._id}`,
           { withCredentials: true }
         );
         setMessages(response.data);
@@ -67,7 +67,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
   
     try {
       const response = await axios.post(
-        "http://localhost:3000/message",
+        "https://connectify-93bj.onrender.com/message",
         message,
         { withCredentials: true }
       );

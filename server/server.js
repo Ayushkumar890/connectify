@@ -19,7 +19,7 @@ app.use(compression());
 
 
 app.use(cors({
-    origin: 'http://localhost:3001',
+    origin: 'https://connectify-93bj.onrender.com',
     credentials: true
 }));
 

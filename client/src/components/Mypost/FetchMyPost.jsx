@@ -13,7 +13,7 @@ const FetchMyPost = ({ post, onDelete }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/auth/profile', {
+        const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/profile', {
           withCredentials: true
         });
         // console.log('API response:', response.data.user.role); // Debugging: log the full response

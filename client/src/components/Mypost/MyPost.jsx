@@ -12,7 +12,7 @@ const MyPost = () => {
   const fetchMyPosts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:3000/api/auth/myposts', { withCredentials: true });
+      const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/myposts', { withCredentials: true });
       if (response.data.success) {
         setPosts(response.data.data);
       } else {
@@ -33,7 +33,7 @@ const MyPost = () => {
   // Delete post
   const deletePost = async (postId) => {
     try {
-      await axios.delete(`http://localhost:3000/api/auth/posts/${postId}`, { withCredentials: true });
+      await axios.delete(`https://connectify-93bj.onrender.com/api/auth/posts/${postId}`, { withCredentials: true });
       setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
     } catch (error) {
       console.error('Error deleting the post:', error);

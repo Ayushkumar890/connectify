@@ -11,7 +11,7 @@ const TotalPost = () => {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/auth/profile', { withCredentials: true });
+      const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/profile', { withCredentials: true });
       setCurrentUser(response.data.user);  // Set current user from backend
     } catch (error) {
       console.error("Error fetching current user:", error);
@@ -22,7 +22,7 @@ const TotalPost = () => {
     const fetchPosts = async () => {
       setLoading(true); 
       try {
-        const response = await axios.get('http://localhost:3000/api/auth/posts');
+        const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/posts');
         // console.log('Response Data:', response.data); 
         if (response.data.success) {
           setPosts(response.data.data); 

@@ -11,7 +11,7 @@ const Conversation = ({ data, currentUserId }) => {
 
             try {
                 const response = await axios.post(
-                    'http://localhost:3000/api/auth/user',
+                    'https://connectify-93bj.onrender.com/api/auth/user',
                     { userId: otherUserId },
                     { withCredentials: true }
                 );

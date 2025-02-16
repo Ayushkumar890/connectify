@@ -11,7 +11,7 @@ const UserProfile = () => {
     const [avatarLink, setAvatarLink]= useState("https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg");
     const fetchUserData = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/api/auth/profile', {
+            const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/profile', {
                 withCredentials: true 
             });
             

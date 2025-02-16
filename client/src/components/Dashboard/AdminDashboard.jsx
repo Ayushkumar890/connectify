@@ -18,7 +18,7 @@ const AdminDashboard = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/auth/profile",
+          "https://connectify-93bj.onrender.com/api/auth/profile",
           {
             withCredentials: true,
           }
@@ -47,7 +47,7 @@ const AdminDashboard = () => {
       setError("");
       try {
         const response = await axios.post(
-          "http://localhost:3000/community/myCommunities",
+          "https://connectify-93bj.onrender.com/community/myCommunities",
           { userId: userId },
           { withCredentials: true }
         );

@@ -17,7 +17,7 @@ const Chat = () => {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io("http://localhost:8800");
+    socket.current = io("https://connectify-93bj.onrender.com");
 
     if (user?._id) {
       socket.current.emit("new-user-add", user._id);
@@ -68,7 +68,7 @@ const Chat = () => {
   const fetchUserData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/auth/profile",
+        "https://connectify-93bj.onrender.com/api/auth/profile",
         {
           withCredentials: true,
         }
@@ -84,7 +84,7 @@ const Chat = () => {
   const fetchChats = async (userId) => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:3000/chat/${userId}`, {
+      const response = await axios.get(`https://connectify-93bj.onrender.com/chat/${userId}`, {
         withCredentials: true,
       });
       setChats(response.data || []);
