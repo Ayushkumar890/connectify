@@ -3,7 +3,7 @@ const { Server } = require("socket.io");
 function initializeSocket(server) {
   const io = new Server(8800, {
     cors: {
-      origin: "http://localhost:3001",
+      origin: "https://connectify-93bj.onrender.com",
     },
   });
 
