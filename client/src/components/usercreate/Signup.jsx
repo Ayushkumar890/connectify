@@ -38,7 +38,7 @@ function Signup() {
 
         try {
             setLoading(true);
-            const response = await axios.post('https://connectify-93bj.onrender.combj.onrender.com/api/auth/signup', { name, email, password, role, otp });
+            const response = await axios.post('https://connectify-93bj.onrender.com/api/auth/signup', { name, email, password, role, otp });
             setMessage(response.data.message);
             setTimeout(() => {
                 setLoading(false);
