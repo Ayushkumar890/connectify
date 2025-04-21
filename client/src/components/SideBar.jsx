@@ -68,7 +68,7 @@ const SideBar = () => {
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [location.pathname]);
 
   const isActive = (path) => location.pathname === path;
 
