@@ -16,8 +16,8 @@ const io = initializeSocket(server);
 
 // If you want io inside routes later, attach it to req
 app.use((req, res, next) => {
-  req.io = io;
-  next();
+    req.io = io;
+    next();
 });
 
 const _dirname = path.resolve();
@@ -27,12 +27,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(compression());
 
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3001",
-    credentials: true,
-  })
-);
+app.use(cors({
+    origin: [
+        "https://connectify-93bj.onrender.com",
+        "https://connectify-saas.vercel.app"
+    ],
+    credentials: true
+}));
 
 // Connect DB
 require("./config/database").connect();
@@ -52,5 +53,5 @@ app.get('*', (_, res) => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`🚀 Server running on port ${PORT}`);
 });
