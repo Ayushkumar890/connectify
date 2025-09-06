@@ -57,7 +57,8 @@
     "tailwindcss": "^3.4.10"
   },
   "jest": {
-  "modulePathIgnorePatterns": ["timeago.js"]
-}
-
+    "modulePathIgnorePatterns": [
+      "timeago.js"
+    ]
+  }
 }
