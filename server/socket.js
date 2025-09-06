@@ -20,7 +20,7 @@ function initializeSocket(server) {
   };
 
   io.on("connection", (socket) => {
-    console.log(`✅ New socket connected: ${socket.id}`);
+    // console.log(`✅ New socket connected: ${socket.id}`);
 
     // Client should call this once after it knows the userId
     socket.on("new-user-add", (userId) => {
@@ -34,7 +34,7 @@ function initializeSocket(server) {
       const prev = onlineCounts.get(userId) || 0;
       onlineCounts.set(userId, prev + 1);
 
-      console.log("👥 Online counts:", Object.fromEntries(onlineCounts));
+      // console.log("👥 Online counts:", Object.fromEntries(onlineCounts));
       broadcastOnlineUsers();
     });
 
