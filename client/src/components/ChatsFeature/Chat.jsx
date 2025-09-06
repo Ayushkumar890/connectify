@@ -88,7 +88,7 @@ const Chat = () => {
         <div className="text-white p-4 w-full">
           {loading ? (
             <div className="flex justify-center mt-20">
-              <ClipLoader color={"#6C63FF"} loading={loading} size={100} />
+              <ClipLoader color={"#0d8007"} loading={loading} size={100} />
             </div>
           ) : chats.length > 0 ? (
             chats.map((chat) => (
@@ -123,10 +123,10 @@ const Chat = () => {
           />
         ) : (
           <div className="h-[calc(100vh-60px)] flex flex-col justify-center items-center">
-            <HiOutlineChatBubbleBottomCenterText size={150} color="#6F00FF" />
+            <HiOutlineChatBubbleBottomCenterText size={150} color="#0d8007" />
             <div className="flex flex-col items-center py-6">
               <p className="p-2">Select a chat to start messaging</p>
-              <button className="bg-[#6F00FF] px-4 py-2 rounded-xl flex">
+              <button className="bg-[#0d8007] px-4 py-2 rounded-xl flex">
                 Chat
               </button>
             </div>
