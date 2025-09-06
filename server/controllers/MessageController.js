@@ -23,13 +23,12 @@ exports.addMessage = async (req, res) => {
 exports.addGroupMessage = async (req, res) => {
   try {
     const { communityId, senderId, text } = req.body;
-    // console.log('Received data:', { communityId, senderId, text });
+    console.log('Received data:', { communityId, senderId, text });
 
     // Ensure all fields are received correctly
     if (!communityId || !senderId || !text) {
       return res.status(400).json({ message: 'Missing required fields' });
     }
-
     // Save the message to the database
     const newMessage = new GroupChatModel({
       communityId,
@@ -38,7 +37,7 @@ exports.addGroupMessage = async (req, res) => {
     });
 
     const savedMessage = await newMessage.save();
-    // console.log('Saved message:', savedMessage);
+    console.log('Saved message:', savedMessage);
 
     // Emit the message to all users in the community group (Ensure req.io is correctly initialized)
     if (req.io) {

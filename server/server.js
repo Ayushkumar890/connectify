@@ -1,14 +1,24 @@
+// server/server.js
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const compression = require("compression");
+const bodyParser = require("body-parser");
+const http = require("http");
+const path = require("path");
+const initializeSocket = require("./socket");
 
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const compression = require('compression');
-const bodyParser = require('body-parser');
-const http = require('http');
-const initializeSocket = require("../socket/index");
 const app = express();
 const server = http.createServer(app);
-const path = require("path")
+
+// ✅ Initialize socket.io with the HTTP server
+const io = initializeSocket(server);
+
+// If you want io inside routes later, attach it to req
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
 
 const _dirname = path.resolve();
 
@@ -17,35 +27,30 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(compression());
 
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || "http://localhost:3001",
+    credentials: true,
+  })
+);
 
-app.use(cors({
-    origin: 'https://connectify-93bj.onrender.com',
-    credentials: true
-}));
+// Connect DB
+require("./config/database").connect();
 
-require('./config/database').connect();
+// Routes
+app.use("/api/auth", require("./routes/user"));
+app.use("/chat", require("./routes/chat"));
+app.use("/message", require("./routes/message"));
+app.use("/community", require("./routes/community"));
 
-
-const userRoutes = require('./routes/user');
-const chatRoutes = require('./routes/chat');
-const messageRoutes = require('./routes/message');
-const communityRoutes = require('./routes/community')
-
-
-app.use('/api/auth', userRoutes);
-app.use('/chat', chatRoutes);
-app.use('/message', messageRoutes);
-app.use('/community', communityRoutes);
-initializeSocket(server);
+// Serve React build
 app.use(express.static(path.join(_dirname, "/client/build")));
 
 app.get('*', (_, res) => {
     res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
 });
 
-
-
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
-})
+  console.log(`🚀 Server running on port ${PORT}`);
+});

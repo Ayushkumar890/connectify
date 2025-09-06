@@ -43,10 +43,14 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
   }, [chat]);
 
   useEffect(() => {
-    if (receivedMessage && receivedMessage.chatId === chat?._id) {
+  if (receivedMessage && receivedMessage.chatId === chat._id) {
+    // Only add if it's not from me
+    if (receivedMessage.senderId !== currentUser) {
       setMessages((prev) => [...prev, receivedMessage]);
     }
-  }, [receivedMessage, chat?._id]);
+  }
+}, [receivedMessage, chat._id, currentUser]);
+
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {

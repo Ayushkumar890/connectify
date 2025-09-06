@@ -1,12 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { GoSearch } from "react-icons/go";
+import { useNavigate } from 'react-router-dom';
+
 
 const Search = () => {
+
+    const [currentUser, setcurrentUser] = useState('');
     const [query, setQuery] = useState('');
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [chatExists, setChatExists] = useState(false);
+    const [chatId, setChatId] = useState(null);
+    const navigate = useNavigate();
+
+    const fetchUserData = async () => {
+        try {
+            const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/profile', {
+                withCredentials: true,
+            });
+            setcurrentUser(response.data.user._id);
+            // console.log("curre",response.data.user._id)
+
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    };
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -28,6 +48,48 @@ const Search = () => {
         }
     };
 
+    useEffect(() => {
+        fetchUserData()
+        if (currentUser && users._id) {
+        }
+    }, [users]);
+
+    // console.log("user",users._id);
+    // console.log("currentUser",currentUser._id);
+    const handleChatClick = async (otherUserId) => {
+        if (currentUser && otherUserId && currentUser !== otherUserId) {
+            // console.log("user", otherUserId);
+            // console.log("currentUser", currentUser);
+
+            // check if chat exists with this user
+            try {
+                const response = await axios.post('https://connectify-93bj.onrender.com/chat/check', {
+                    members: [currentUser, otherUserId],
+                });
+
+                if (response.data.chatExists) {
+                    navigate(`/chat`);
+                } else {
+                    // create new chat
+                    const createResponse = await axios.post('https://connectify-93bj.onrender.com/chat/', {
+                        members: [currentUser, otherUserId],
+                    });
+
+                    if (createResponse.data.success) {
+                        navigate(`/chat`);
+                    } else {
+                        alert("Failed to create chat.");
+                    }
+                }
+            } catch (error) {
+                console.error("Error handling chat:", error);
+                alert("An error occurred while creating the chat.");
+            }
+        } else {
+            alert("You cannot chat with yourself!");
+        }
+    };
+
     return (
         <div className="mt-10 text-white md:flex items-center justify-center p-2">
             <div className="w-full rounded-lg shadow-2xl ">
@@ -46,7 +108,7 @@ const Search = () => {
                         disabled={!query.trim()}
                         className="px-6 py-2 bg-green text-white rounded-lg hover:bg-green disabled:opacity-70"
                     >
-                       <span className='hidden md:block py-2'>search</span><span className='md:hidden'><GoSearch/></span>
+                        <span className='hidden md:block py-2'>search</span><span className='md:hidden'><GoSearch /></span>
                     </button>
                 </form>
 
@@ -64,9 +126,21 @@ const Search = () => {
                                     src={user?.image || 'https://via.placeholder.com/150'}
                                     alt="avatar"
                                 />
-                                <div>
-                                    <h3 className="text-lg font-semibold">{user?.name}</h3>
-                                    <p className="text-gray-400 text-sm">{user?.email}</p>
+                                <div className='flex justify-between w-full'>
+                                    <div>
+                                        <h3 className="text-lg font-semibold">{user?.name}</h3>
+                                        <p className="text-gray-400 text-sm">{user?.email}</p>
+                                    </div>
+                                    <div>
+                                        {/* {currentUser && currentUser._id !== user._id && ( */}
+                                        <button
+                                            onClick={() => handleChatClick(user._id)}
+                                            className="mt-4 px-4 py-2 border-2 border-green text-white rounded hover:bg-green"
+                                        >
+                                            {chatExists ? "Go to Chat" : "Start Chat"}
+                                        </button>
+                                        {/* )} */}
+                                    </div>
                                 </div>
                             </li>
                         ))}

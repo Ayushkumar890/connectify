@@ -10,7 +10,6 @@ const CreateCommunity = () => {
 
   const navigate = useNavigate();
 
-  // Fetch user details on component mount
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -31,7 +30,7 @@ const CreateCommunity = () => {
     };
 
     fetchUserData();
-  }, []); // Empty dependency array ensures this runs only once
+  }, []); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,7 +51,7 @@ const CreateCommunity = () => {
         description,
         category,
         userId: user._id,
-      });
+      } , { withCredentials: true });
       // console.log(response.data);
       alert(response.data.message);
       navigate('/community');

@@ -61,7 +61,7 @@ function initializeSocket(server) {
     socket.on("joinCommunityGroup", ({ communityId }) => {
       if (!communityId) return;
       socket.join(communityId);
-      console.log(`🏘️ ${socket.id} joined community room ${communityId}`);
+      // console.log(`🏘️ ${socket.id} joined community room ${communityId}`);
     });
 
     socket.on("sendGroupMessage", (messageData) => {
@@ -88,7 +88,7 @@ function initializeSocket(server) {
         if (next <= 0) onlineCounts.delete(userId);
         else onlineCounts.set(userId, next);
       }
-      console.log(`❌ Socket disconnected: ${socket.id}`);
+      // console.log(` Socket disconnected: ${socket.id}`);
       broadcastOnlineUsers();
     });
   });

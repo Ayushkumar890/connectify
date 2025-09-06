@@ -11,7 +11,9 @@ const AllMembers = () => {
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const response = await axios.get(`https://connectify-93bj.onrender.combj.onrender.com/community/${communityId}/members`);
+        const response = await axios.get(`https://connectify-93bj.onrender.com/${communityId}/members`, {
+          withCredentials: true,
+        });
         // console.log('API response:', response.data);
         setMembers(response.data.community.members);
         // console.log('Members data fetched:', response.data.community);
@@ -41,7 +43,6 @@ const AllMembers = () => {
           <ul className="divide-y divide-green">
             {members.map((member) => (
               <li key={member?.id} className="py-4 flex items-center gap-4">
-                {/* Uncomment the image tag when the member's image URL is available */}
                 <img
                   src={member?.image || 'https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg'}
                   alt="avatar"

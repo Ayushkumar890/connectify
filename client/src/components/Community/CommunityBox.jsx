@@ -49,7 +49,7 @@ const navigate = useNavigate();
       <div className="p-4">
         <Link to={`/community/${community._id}`}>
         <button
-          className="relative w-full md:w-[310px] h-[150px] bg-gradient-to-t from-[#075504] via-[#0d8007] to-[#29a623] text-white rounded-2xl border-none outline-none cursor-pointer overflow-hidden shadow-[0_15px_30px_rgba(0,0,0,0.5)] group"
+          className="relative w-full md:w-[310px] h-[150px] bg-gradient-to-t from-[#6b1fce] via-[#6F00FF] to-[#5503c1] text-white rounded-2xl border-none outline-none cursor-pointer overflow-hidden shadow-[0_15px_30px_rgba(0,0,0,0.5)] group"
           onClick={handleJoinCommunity} // Call the function on click
         >
           <div className="absolute w-full left-0 top-1/2 transform -translate-y-1/2 text-[12px] uppercase tracking-wider transition-all duration-500 group-hover:-top-full">
