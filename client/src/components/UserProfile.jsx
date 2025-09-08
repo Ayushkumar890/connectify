@@ -31,7 +31,7 @@ const UserProfile = () => {
     fetchUserData();
   return (
     <div className="max-w-full mt-5 shadow-xl rounded-lg bg-black text-white z-50">
-      <div className=" sticky top-0 pt-5 bg-black border-b-2 border-green">
+      <div className="pt-5 bg-black border-b-2 border-green">
         <div className="rounded-lg h-48 md:h-52 overflow-hidden border-green border-4">
           <img
             className="object-cover object-top w-full"

@@ -12,7 +12,7 @@ const TotalPost = () => {
   const fetchCurrentUser = async () => {
     try {
       const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/profile', { withCredentials: true });
-      setCurrentUser(response.data.user);  // Set current user from backend
+      setCurrentUser(response.data.user);
     } catch (error) {
       console.error("Error fetching current user:", error);
     }
@@ -20,12 +20,11 @@ const TotalPost = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      setLoading(true); 
+      setLoading(true);
       try {
         const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/posts');
-        // console.log('Response Data:', response.data); 
         if (response.data.success) {
-          setPosts(response.data.data); 
+          setPosts(response.data.data);
         } else {
           setError('Failed to fetch posts');
         }
@@ -33,7 +32,7 @@ const TotalPost = () => {
         console.error('Error fetching posts:', error);
         setError('Error fetching posts');
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -42,43 +41,119 @@ const TotalPost = () => {
   }, []);
 
   if (error) {
-    return <div className='text-red-500 text-center mt-20'>Error: {error}</div>;
+    return (
+      <div className='min-h-screen bg-black flex items-center justify-center'>
+        <div className='text-center p-8 rounded-2xl border-2 border-red-500/30 bg-red-500/5'>
+          <svg className="w-16 h-16 mx-auto mb-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <h3 className='text-xl font-bold text-red-400 mb-2'>Oops! Something went wrong</h3>
+          <p className='text-red-300'>{error}</p>
+        </div>
+      </div>
+    );
   }
 
   const reversedPosts = [...posts].reverse();
 
   return (
-    <>
+    <div className="min-h-screen bg-black">
       {loading ? (
-        <div className='flex justify-center mt-20'>
-          <ClipLoader 
-            color={'#0d8007'} 
-            loading={loading} 
-            size={100} 
-            aria-label="Loading Spinner" 
-            data-testid="loader"
-          />
+        <div className='flex flex-col items-center justify-center min-h-screen'>
+          <div className="relative">
+            <ClipLoader
+              color={'#10b981'}
+              loading={loading}
+              size={80}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+            <div className="absolute inset-0 rounded-full border-4 border-green-500/20 animate-pulse" />
+          </div>
+          <p className="text-green-400 mt-4 animate-pulse">Loading amazing posts...</p>
         </div>
       ) : (
-        <div className="w-full hide-scrollbar">
-          <div className="py-1 md:py-4 px-2 md:px-4 w-full bg-black lg:py-2 lg:px-6">
-            <div className="grid gap-8 w-full">
+        <div className="w-full">
+
+          {/* Posts Container */}
+          <div className="max-w-4xl mx-auto py-8 px-4">
+            <div className="space-y-8">
               {reversedPosts.length > 0 ? (
-                reversedPosts.map((post) => <Blog key={post._id} post={post} currentUser={currentUser}  />)
+                reversedPosts.map((post, index) => (
+                  <div
+                    key={post._id}
+                    className="transform transition-all duration-500 hover:scale-[1.02]"
+                    style={{
+                      animationDelay: `${index * 100}ms`,
+                      animation: 'fadeInUp 0.6s ease-out forwards'
+                    }}
+                  >
+                    <Blog post={post} currentUser={currentUser} />
+                  </div>
+                ))
               ) : (
-                <div className="flex flex-col items-center justify-center min-h-[500px] text-gray-500 animate-pulse">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-12 h-12 mb-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132a1.997 1.997 0 00-2.098 0l-3.197 2.132a2 2 0 00-.741 2.293l1.189 3.49c.276.813.98 1.365 1.829 1.463l2.61.313a2 2 0 002.192-1.737l.313-2.61c.098-.849.65-1.553 1.463-1.829l3.49-1.189a2 2 0 00.293-.741l-2.132-3.197a2 2 0 00-2.293-.741z" />
-                  </svg>
-                  <p className="text-lg font-semibold">Looks like no posts yet!</p>
-                  <p className="text-sm text-green  cursor-pointer">Start creating one now!</p>
+                <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
+                  <div className="relative mb-8">
+                    {/* Animated background circles */}
+                    <div className="absolute inset-0 -m-4">
+                      <div className="w-24 h-24 rounded-full border-2 border-green-500/20 animate-ping" />
+                      <div className="absolute inset-2 w-20 h-20 rounded-full border border-green-500/10 animate-pulse" />
+                    </div>
+                    
+                    {/* Icon */}
+                    <div className="relative z-10 w-16 h-16 mx-auto bg-gradient-to-br from-green-500/20 to-green-600/30 rounded-2xl flex items-center justify-center">
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor" 
+                        className="w-8 h-8 text-green-400"
+                      >
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth="2" 
+                          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" 
+                        />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="text-2xl font-bold text-white">
+                      No posts yet!
+                    </h3>
+                    <p className="text-gray-400 max-w-md">
+                      Be the first to share something amazing with the community. 
+                      Your thoughts matter!
+                    </p>
+                    <div className="flex items-center justify-center gap-2 text-green-400 hover:text-green-300 transition-colors cursor-pointer group">
+                      <svg className="w-5 h-5 transform group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      </svg>
+                      <span className="font-medium">Start creating now!</span>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
           </div>
         </div>
       )}
-    </>
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+    </div>
   );
 };
 

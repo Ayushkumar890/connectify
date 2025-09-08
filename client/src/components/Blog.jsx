@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import Search from './Search';
 
 const Blog = ({ post, currentUser }) => {
   const [userData, setUserData] = useState(null);
-  const [chatExists, setChatExists] = useState(false); 
-  const [chatId, setChatId] = useState(null); 
+  const [chatExists, setChatExists] = useState(false);
+  const [chatId, setChatId] = useState(null);
   const [avatar, setAvatar] = useState("https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg");
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const fetchUserData = async () => {
     try {
@@ -27,14 +28,14 @@ const Blog = ({ post, currentUser }) => {
   const checkChatExists = async () => {
     try {
       const response = await axios.post('https://connectify-93bj.onrender.com/chat/check', {
-        members: [currentUser._id, post.name._id], 
+        members: [currentUser._id, post.name._id],
       });
 
       if (response.data.chatExists) {
-        setChatExists(true); 
-        setChatId(response.data.chatId); 
+        setChatExists(true);
+        setChatId(response.data.chatId);
       } else {
-        setChatExists(false); 
+        setChatExists(false);
       }
     } catch (error) {
       console.error("Error checking if chat exists:", error);
@@ -48,7 +49,7 @@ const Blog = ({ post, currentUser }) => {
       });
 
       if (response.data.success) {
-        navigate(`/chat`); 
+        navigate(`/chat`);
       } else {
         alert("Failed to create chat.");
       }
@@ -59,9 +60,9 @@ const Blog = ({ post, currentUser }) => {
   };
 
   useEffect(() => {
-    fetchUserData(); 
+    fetchUserData();
     if (currentUser && post?.name?._id) {
-      checkChatExists(); 
+      checkChatExists();
     }
   }, [post, currentUser]);
 
@@ -80,7 +81,12 @@ const Blog = ({ post, currentUser }) => {
   };
 
   return (
+
     <article className="p-6 bg-black rounded-lg border border-gray-700 shadow-md dark:border-gray-700">
+      <div className=' hidden'>
+        <Search currentUser={currentUser} />
+      </div>
+
       <div className="flex justify-between items-center mb-5 text-gray-500">
         {isExpert && (
           <span className="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center rounded dark:bg-primary-200 dark:text-primary-800">
