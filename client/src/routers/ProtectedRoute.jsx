@@ -30,15 +30,19 @@ const ProtectedRoute = ({ children }) => {
         checkAuth();
     }, []);
 
-    if (loading) return <div><div className="flex justify-center mt-20">
-    <ClipLoader
-      color={'#0d8007'}
-      loading={loading}
-      size={100}
-      aria-label="Loading Spinner"
-      data-testid="loader"
-    />
-  </div></div>;
+    if (loading) {
+        return (
+            <div className="flex flex-col items-center justify-center h-screen">
+                <ClipLoader
+                    color={'#0d8007'}
+                    loading={loading}
+                    size={100}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+            </div>
+        );
+    }
 
     return isAuthenticated ? children : <Navigate to="/login" />;
 };

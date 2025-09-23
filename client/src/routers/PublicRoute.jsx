@@ -30,15 +30,23 @@ const PublicRoute = ({ children }) => {
         checkAuth();
     }, []);
 
-    if (loading) return <div><div className="flex justify-center mt-20">
-    <ClipLoader
-      color={'#0d8007'}
-      loading={loading}
-      size={100}
-      aria-label="Loading Spinner"
-      data-testid="loader"
-    />
-  </div></div>;
+    if (loading) {
+        return (
+            <div className="flex flex-col items-center justify-center h-screen">
+                <ClipLoader
+                    color={'#0d8007'}
+                    loading={loading}
+                    size={100}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+                <p className="mt-4 text-lg text-gray-200 text-center">
+                    Please wait a moment... Render is taking a little time for backend deployment.
+                </p>
+            </div>
+        );
+    }
+
 
     return isAuthenticated ? <Navigate to="/home" /> : children;
 };
