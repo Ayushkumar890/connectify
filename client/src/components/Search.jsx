@@ -11,8 +11,8 @@ const Search = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [chatExists, setChatExists] = useState(false);
-    const [chatId, setChatId] = useState(null);
+    // const [chatExists, setChatExists] = useState(false);
+    // const [chatId, setChatId] = useState(null);
     const navigate = useNavigate();
 
     const fetchUserData = async () => {
@@ -203,7 +203,7 @@ const Search = () => {
                                                 className="w-full sm:w-auto group px-6 py-3 bg-gradient-to-r from-green to-emerald-600 hover:from-emerald-600 hover:to-green text-white rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-green/25 flex items-center justify-center space-x-2 transform hover:scale-105 active:scale-95"
                                             >
                                                 <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
-                                                <span>{chatExists ? "Go to Chat" : "Start Chat"}</span>
+                                                <span>Start Chat</span>
                                             </button>
                                         </div>
                                     </div>

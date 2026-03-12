@@ -5,7 +5,7 @@ import ChatBox from "./ChatBox";
 import { HiOutlineChatBubbleBottomCenterText } from "react-icons/hi2";
 import ClipLoader from "react-spinners/ClipLoader";
 import { socket } from "../../socket"; // import the shared socket
-import { MessageCircle, Users, Search, Settings, Menu, X } from "lucide-react";
+import { MessageCircle, Menu} from "lucide-react";
 import BackendURL from "../../api/auth";
 
 const Chat = () => {
@@ -17,7 +17,7 @@ const Chat = () => {
   const [currentChat, setCurrentChat] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  // const [searchTerm, setSearchTerm] = useState("");
 
   // Connect socket once
   useEffect(() => {

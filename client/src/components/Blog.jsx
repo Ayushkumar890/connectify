@@ -5,9 +5,9 @@ import Search from './Search';
 import BackendURL from "../api/auth";
 
 const Blog = ({ post, currentUser }) => {
-  const [userData, setUserData] = useState(null);
+  // const [userData, setUserData] = useState(null);
   const [chatExists, setChatExists] = useState(false);
-  const [chatId, setChatId] = useState(null);
+  // const [chatId, setChatId] = useState(null);
   const [avatar, setAvatar] = useState("https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg");
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ const Blog = ({ post, currentUser }) => {
         { userId },
         { withCredentials: true }
       );
-      setUserData(response.data.user);
+      // setUserData(response.data.user);
       setAvatar(response.data.user.image);
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -34,7 +34,7 @@ const Blog = ({ post, currentUser }) => {
 
       if (response.data.chatExists) {
         setChatExists(true);
-        setChatId(response.data.chatId);
+        // setChatId(response.data.chatId);
       } else {
         setChatExists(false);
       }
@@ -65,7 +65,7 @@ const Blog = ({ post, currentUser }) => {
     if (currentUser && post?.name?._id) {
       checkChatExists();
     }
-  }, [post, currentUser]);
+  }, );
 
   const isExpert = post?.name?.role && post.name.role !== 'Visitor';
 

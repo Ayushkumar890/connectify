@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import axios from 'axios';
 import InputEmoji from 'react-input-emoji';
 import { format } from 'timeago.js';
-import { Users, Send, ArrowLeft, Hash, Loader2, MessageCircle, Crown } from 'lucide-react';
+import { Users, Send, ArrowLeft, Hash, Loader2, MessageCircle } from 'lucide-react';
 import BackendURL from "../../api/auth";
 
 const socket = io(process.env.REACT_APP_SOCKET_URL);

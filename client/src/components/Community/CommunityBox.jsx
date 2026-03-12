@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { Users, Hash, ArrowRight, Calendar, Crown, Loader2 } from 'lucide-react';
+import { Users, Hash, ArrowRight } from 'lucide-react';
 import BackendURL from "../../api/auth";
 
 const CommunityBox = ({ community }) => {
