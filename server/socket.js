@@ -1,10 +1,10 @@
 // socket/index.js
 const { Server } = require("socket.io");
-
+const { FrontendURL } = require("./config/index");
 function initializeSocket(server) {
   const io = new Server(server, {
     cors: {
-      origin: "https://connectify-saas.vercel.app", // your React client
+      origin: `${FrontendURL}`, // your React client
       credentials: true,
       methods: ["GET", "POST"],
     },

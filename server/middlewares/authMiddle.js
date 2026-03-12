@@ -30,7 +30,7 @@ exports.auth = async (req, res, next) => {
 
 
 exports.verifyToken = (req, res) => {
-    const token = req.cookies.jwtToken;
+    const token = req.cookies.jwtToken ;
     // console.log("Token exists:", token);
 
     if (!token) {

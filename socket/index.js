@@ -1,10 +1,9 @@
 // socket/index.js
 const { Server } = require("socket.io");
-
 function initializeSocket(server) {
   const io = new Server(server, {
     cors: {
-      origin: "https://connectify-saas.vercel.app", // your React client
+      origin: `http://localhost:3000`, // your React client
       credentials: true,
       methods: ["GET", "POST"],
     },

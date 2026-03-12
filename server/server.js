@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const http = require("http");
 const path = require("path");
 const initializeSocket = require("./socket");
-
+const { BackendURL, FrontendURL } = require("./config/index");
 const app = express();
 const server = http.createServer(app);
 
@@ -29,8 +29,8 @@ app.use(compression());
 
 app.use(cors({
     origin: [
-        "https://connectify-93bj.onrender.com",
-        "https://connectify-saas.vercel.app"
+        `${BackendURL}`,
+        `${FrontendURL}`
     ],
     credentials: true
 }));
@@ -51,7 +51,7 @@ app.get('*', (_, res) => {
     res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 server.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
 });
