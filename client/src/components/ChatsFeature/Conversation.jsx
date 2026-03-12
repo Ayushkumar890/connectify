@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import BackendURL from "../../api/auth";
 
 const Conversation = ({ data, currentUserId }) => {
     const [userData, setUserData] = useState(null);
@@ -11,7 +12,7 @@ const Conversation = ({ data, currentUserId }) => {
 
             try {
                 const response = await axios.post(
-                    'https://connectify-93bj.onrender.com/api/auth/user',
+                    `${BackendURL}/api/auth/user`,
                     { userId: otherUserId },
                     { withCredentials: true }
                 );

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import validator from "validator";
+import BackendURL from "../../api/auth";
 
 function Signup() {
     const [name, setName] = useState('');
@@ -39,7 +40,7 @@ function Signup() {
 
         try {
             setLoading(true);
-            const response = await axios.post('https://connectify-93bj.onrender.com/auth/signup', { name, email, password, role, otp });
+            const response = await axios.post(`${BackendURL}/api/auth/signup`, { name, email, password, role, otp });
             setMessage(response.data.message);
             setTimeout(() => {
                 setLoading(false);

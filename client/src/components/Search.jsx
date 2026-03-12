@@ -3,6 +3,7 @@ import axios from 'axios';
 import { GoSearch } from "react-icons/go";
 import { useNavigate } from 'react-router-dom';
 import { Users, MessageCircle, Mail, Loader2, UserPlus, Search as SearchIcon } from 'lucide-react';
+import BackendURL from "../api/auth";
 
 const Search = () => {
     const [currentUser, setcurrentUser] = useState('');
@@ -16,7 +17,7 @@ const Search = () => {
 
     const fetchUserData = async () => {
         try {
-            const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/profile', {
+            const response = await axios.get(`${BackendURL}/api/auth/profile`, {
                 withCredentials: true,
             });
             setcurrentUser(response.data.user._id);
@@ -32,7 +33,7 @@ const Search = () => {
         setError('');
 
         try {
-            const response = await axios.get(`https://connectify-93bj.onrender.com/api/auth/search?query=${query}`);
+            const response = await axios.get(`${BackendURL}/api/auth/search?query=${query}`);
             setUsers(response.data);
         } catch (err) {
             if (err.response && err.response.status === 404) {
@@ -53,7 +54,7 @@ const Search = () => {
     const handleChatClick = async (otherUserId) => {
         if (currentUser && otherUserId && currentUser !== otherUserId) {
             try {
-                const response = await axios.post('https://connectify-93bj.onrender.com/chat/check', {
+                const response = await axios.post(`${BackendURL}/chat/check`, {
                     members: [currentUser, otherUserId],
                 });
 
@@ -61,7 +62,7 @@ const Search = () => {
                     navigate(`/chat`);
                 } else {
                     // create new chat
-                    const createResponse = await axios.post('https://connectify-93bj.onrender.com/chat/', {
+                    const createResponse = await axios.post(`${BackendURL}/chat/`, {
                         members: [currentUser, otherUserId],
                     });
 

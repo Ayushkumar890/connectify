@@ -3,6 +3,8 @@ import axios from "axios";
 import { format } from "timeago.js";
 import InputEmoji from "react-input-emoji";
 import { Send, Phone, Video, MoreVertical, Smile } from "lucide-react";
+import BackendURL from "../../api/auth";
+
 
 const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
   const [userData, setUserData] = useState(null);
@@ -23,7 +25,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
       const userId = chat?.members.find((id) => id !== currentUser);
       try {
         const response = await axios.post(
-          "https://connectify-93bj.onrender.com/api/auth/user",
+          `${BackendURL}/api/auth/user`,
           { userId },
           { withCredentials: true }
         );
@@ -40,7 +42,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
     const fetchMessages = async () => {
       try {
         const response = await axios.get(
-          `https://connectify-93bj.onrender.com/message/${chat?._id}`,
+          `${BackendURL}/message/${chat?._id}`,
           { withCredentials: true }
         );
         setMessages(response.data);
@@ -81,7 +83,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
 
     try {
       const response = await axios.post(
-        "https://connectify-93bj.onrender.com/message",
+        `${BackendURL}/message`,
         message,
         { withCredentials: true }
       );

@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 // import PopularCard from './PopularCard'
 import axios from 'axios';
 import CommunityBox from './Community/CommunityBox';
+import BackendURL from "../api/auth";
 
 const Popular = () => {
 
@@ -11,7 +12,7 @@ const Popular = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get("https://connectify-93bj.onrender.com/community", {
+                const response = await axios.get(`${BackendURL}/community`, {
                     withCredentials: true,
                 });
 

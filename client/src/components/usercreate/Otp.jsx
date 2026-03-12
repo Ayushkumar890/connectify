@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import validator from "validator";
+import BackendURL from "../../api/auth";
 
 function Otp() {
     const [email, setEmail] = useState('');
@@ -27,7 +28,7 @@ function Otp() {
         }
         try {
             setLoading(true);
-            const response = await axios.post('https://connectify-93bj.onrender.com/api/auth/sendotp', { email });
+            const response = await axios.post(`${BackendURL}/api/auth/sendotp`, { email });
             setMessage(response.data.message);
             if (response.data.success) {
                 setTimeout(() => {

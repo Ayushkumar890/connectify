@@ -5,6 +5,7 @@ import axios from 'axios';
 import InputEmoji from 'react-input-emoji';
 import { format } from 'timeago.js';
 import { Users, Send, ArrowLeft, Hash, Loader2, MessageCircle, Crown } from 'lucide-react';
+import BackendURL from "../../api/auth";
 
 const socket = io(process.env.REACT_APP_SOCKET_URL);
 
@@ -31,7 +32,7 @@ const CommunityGroup = () => {
   const fetchUserData = useCallback(async (senderId) => {
     if (userCache[senderId]) return userCache[senderId];
     try {
-      const response = await axios.post(`https://connectify-93bj.onrender.com/auth/user`, { userId: senderId }, { withCredentials: true });
+      const response = await axios.post(`${BackendURL}/auth/user`, { userId: senderId }, { withCredentials: true });
       const userName = response.data.user.name;
       setUserCache((prevCache) => ({ ...prevCache, [senderId]: userName }));
       return userName;
@@ -46,8 +47,8 @@ const CommunityGroup = () => {
       try {
         setLoading(true);
         socket.emit('joinCommunityGroup', { communityId });
-        const userResponse = await axios.get(`https://connectify-93bj.onrender.com/auth/profile`, { withCredentials: true });
-        const groupResponse = await axios.get(`https://connectify-93bj.onrender.com/community/${communityId}/group`);
+        const userResponse = await axios.get(`${BackendURL}/auth/profile`, { withCredentials: true });
+        const groupResponse = await axios.get(`${BackendURL}/community/${communityId}/group`);
         setUser(userResponse.data.user);
         const allMessages = groupResponse.data.data || [];
         const enrichedMessages = await Promise.all(allMessages.map(async (msg) => ({ ...msg, senderName: await fetchUserData(msg.senderId) })));
@@ -85,7 +86,7 @@ const CommunityGroup = () => {
     };
 
     try {
-      await axios.post(`https://connectify-93bj.onrender.com/community/${communityId}/group`, messageData);
+      await axios.post(`${BackendURL}/community/${communityId}/group`, messageData);
       socket.emit('sendGroupMessage', messageData);
       setNewMessage('');
     } catch (error) {
@@ -103,7 +104,7 @@ const CommunityGroup = () => {
   useEffect(() => {
     const fetchCommunityName = async () => {
       try {
-        const response = await axios.post(`https://connectify-93bj.onrender.com/community/${communityId}`, { communityId });
+        const response = await axios.post(`${BackendURL}/community/${communityId}`, { communityId });
         setCommunityName(response.data.data.name);
       } catch (error) {
         console.error('Error fetching community name:', error);

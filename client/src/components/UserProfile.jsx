@@ -3,6 +3,7 @@ import MyPost from "./Mypost/MyPost";
 import axios from "axios";
 import bg from '../Assets/stars.png'
 import { Link } from "react-router-dom";
+import BackendURL from "../api/auth";
 
 const UserProfile = () => {
     const [email, setEmail] = useState([]);
@@ -11,7 +12,7 @@ const UserProfile = () => {
     const [avatarLink, setAvatarLink]= useState("https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg");
     const fetchUserData = async () => {
         try {
-            const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/profile', {
+            const response = await axios.get(`${BackendURL}/api/auth/profile`, {
                 withCredentials: true 
             });
             

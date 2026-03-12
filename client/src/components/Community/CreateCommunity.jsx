@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Users, FileText, Tag, Plus, ArrowLeft, Loader2 } from "lucide-react";
+import BackendURL from "../../api/auth";
 
 const CreateCommunity = () => {
   const [name, setName] = useState("");
@@ -18,7 +19,7 @@ const CreateCommunity = () => {
     const fetchUserData = async () => {
       try {
         setUserLoading(true);
-        const response = await axios.get("https://connectify-93bj.onrender.com/api/auth/profile", {
+        const response = await axios.get(`${BackendURL}/api/auth/profile`, {
           withCredentials: true,
         });
 
@@ -52,7 +53,7 @@ const CreateCommunity = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("https://connectify-93bj.onrender.com/community/create", {
+      const response = await axios.post(`${BackendURL}/community/create`, {
         name,
         description,
         category,

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import BackendURL from "../../api/auth";
 
 const AllMembers = () => {
   const { communityId } = useParams();
@@ -11,7 +12,7 @@ const AllMembers = () => {
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const response = await axios.get(`https://connectify-93bj.onrender.com/community/${communityId}/members`);
+        const response = await axios.get(`${BackendURL}/community/${communityId}/members`);
         // console.log('API response:', response.data);
         setMembers(response.data.community.members);
         // console.log('Members data fetched:', response.data.community);

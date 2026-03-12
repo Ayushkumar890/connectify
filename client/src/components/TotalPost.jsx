@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Blog from './Blog';
 import ClipLoader from "react-spinners/ClipLoader";
+import BackendURL from "../api/auth";
 
 const TotalPost = () => {
   const [posts, setPosts] = useState([]);
@@ -11,7 +12,7 @@ const TotalPost = () => {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/profile', { withCredentials: true });
+      const response = await axios.get(`${BackendURL}/api/auth/profile`, { withCredentials: true });
       setCurrentUser(response.data.user);
     } catch (error) {
       console.error("Error fetching current user:", error);
@@ -22,7 +23,7 @@ const TotalPost = () => {
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/posts');
+        const response = await axios.get(`${BackendURL}/api/auth/posts`);
         if (response.data.success) {
           setPosts(response.data.data);
         } else {

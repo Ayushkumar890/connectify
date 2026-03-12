@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import FetchMyPost from './FetchMyPost';
 import ClipLoader from 'react-spinners/ClipLoader';
+import BackendURL from "../../api/auth";
 
 const MyPost = () => {
   const [posts, setPosts] = useState([]);
@@ -12,7 +13,7 @@ const MyPost = () => {
   const fetchMyPosts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/myposts', { withCredentials: true });
+      const response = await axios.get(`${BackendURL}/api/auth/myposts`, { withCredentials: true });
       if (response.data.success) {
         setPosts(response.data.data);
       } else {
@@ -33,7 +34,7 @@ const MyPost = () => {
   // Delete post
   const deletePost = async (postId) => {
     try {
-      await axios.delete(`https://connectify-93bj.onrender.com/api/auth/posts/${postId}`, { withCredentials: true });
+      await axios.delete(`${BackendURL}/api/auth/posts/${postId}`, { withCredentials: true });
       setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
     } catch (error) {
       console.error('Error deleting the post:', error);

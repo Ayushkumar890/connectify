@@ -6,6 +6,7 @@ import { HiOutlineChatBubbleBottomCenterText } from "react-icons/hi2";
 import ClipLoader from "react-spinners/ClipLoader";
 import { socket } from "../../socket"; // import the shared socket
 import { MessageCircle, Users, Search, Settings, Menu, X } from "lucide-react";
+import BackendURL from "../../api/auth";
 
 const Chat = () => {
   const [user, setUser] = useState(null);
@@ -55,7 +56,7 @@ const Chat = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await axios.get("https://connectify-93bj.onrender.com/api/auth/profile", {
+        const res = await axios.get(`${BackendURL}/api/auth/profile`, {
           withCredentials: true,
         });
         setUser(res.data.user);
@@ -70,7 +71,7 @@ const Chat = () => {
     const fetchChats = async (id) => {
       try {
         setLoading(true);
-        const res = await axios.get(`https://connectify-93bj.onrender.com/chat/${id}`, {
+        const res = await axios.get(`${BackendURL}/chat/${id}`, {
           withCredentials: true,
         });
         setChats(res.data || []);

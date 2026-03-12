@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import Search from './Search';
+import BackendURL from "../api/auth";
 
 const Blog = ({ post, currentUser }) => {
   const [userData, setUserData] = useState(null);
@@ -14,7 +15,7 @@ const Blog = ({ post, currentUser }) => {
     try {
       const userId = post?.name?._id;
       const response = await axios.post(
-        "https://connectify-93bj.onrender.com/api/auth/user",
+        `${BackendURL}/api/auth/user`,
         { userId },
         { withCredentials: true }
       );
@@ -27,7 +28,7 @@ const Blog = ({ post, currentUser }) => {
 
   const checkChatExists = async () => {
     try {
-      const response = await axios.post('https://connectify-93bj.onrender.com/chat/check', {
+      const response = await axios.post(`${BackendURL}/chat/check`, {
         members: [currentUser._id, post.name._id],
       });
 
@@ -44,7 +45,7 @@ const Blog = ({ post, currentUser }) => {
 
   const createChat = async () => {
     try {
-      const response = await axios.post('https://connectify-93bj.onrender.com/chat/', {
+      const response = await axios.post(`${BackendURL}/chat/`, {
         members: [currentUser._id, post.name._id],
       });
 

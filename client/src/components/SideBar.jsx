@@ -12,6 +12,7 @@ import {
 import logo1 from '../Assets/logo-no-background.png';
 import logo2 from '../Assets/small-logo.png';
 import axios from 'axios';
+import BackendURL from "../api/auth";
 
 const SideBar = () => {
   const [open, setOpen] = useState(true);
@@ -25,7 +26,7 @@ const SideBar = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/profile', {
+      const response = await axios.get(`${BackendURL}/api/auth/profile`, {
         withCredentials: true,
       });
       if (response.data && response.data.user.email) {
@@ -43,7 +44,7 @@ const SideBar = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/logout', {
+      const response = await axios.get(`${BackendURL}/api/auth/logout`, {
         withCredentials: true,
       });
       console.log(response.data.message);

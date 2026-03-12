@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { TbCirclePlus } from 'react-icons/tb'; // Import the icon
 import axios from 'axios';
 import { useLocation, useParams } from "react-router-dom";
+import BackendURL from "../api/auth";
 
 function PostForm() {
   const [showForm, setShowForm] = useState(false);
@@ -12,7 +13,7 @@ function PostForm() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/posts'); // Adjust URL
+        const response = await axios.get(`${BackendURL}/api/auth/posts`); // Adjust URL
         setUser(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error, user);
@@ -33,7 +34,7 @@ function PostForm() {
 
     try {
       const response = await axios.post(
-        'https://connectify-93bj.onrender.com/api/auth/posts',
+        `${BackendURL}/api/auth/posts`,
         { title, description },
         { withCredentials: true }
       );

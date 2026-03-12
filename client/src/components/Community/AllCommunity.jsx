@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import CommunityBox from './CommunityBox';
+import BackendURL from "../../api/auth";
 
 const AllCommunity = () => {
     const [communities, setCommunities] = useState([]);
@@ -8,7 +9,7 @@ const AllCommunity = () => {
     useEffect(() => {
         const fetchUserData = async () => {
           try {
-            const response = await axios.get("https://connectify-93bj.onrender.com/community", {
+            const response = await axios.get(`${BackendURL}/community`, {
               withCredentials: true,
             });
     

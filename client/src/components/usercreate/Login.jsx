@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import validator from "validator";
+import BackendURL from "../../api/auth";
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -25,7 +26,7 @@ function Login() {
         event.preventDefault();
         try {
             setLoading(true);
-            const response = await axios.post('https://connectify-93bj.onrender.com/api/auth/login', { email, password }, { withCredentials: true });
+            const response = await axios.post(`${BackendURL}/api/auth/login`, { email, password }, { withCredentials: true });
             setMessage(response.data.message);
 
             setTimeout(() => {

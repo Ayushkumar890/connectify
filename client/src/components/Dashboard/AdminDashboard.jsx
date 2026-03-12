@@ -4,6 +4,7 @@ import MyCommunity from "./MyCommunity";
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Users, Plus, Crown, Loader2, AlertCircle, Sparkles } from "lucide-react";
+import BackendURL from "../../api/auth";
 
 const AdminDashboard = () => {
   const [userId, setUserId] = useState("");
@@ -18,7 +19,7 @@ const AdminDashboard = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          "https://connectify-93bj.onrender.com/api/auth/profile",
+          `${BackendURL}/api/auth/profile`,
           {
             withCredentials: true,
           }
@@ -48,7 +49,7 @@ const AdminDashboard = () => {
       setError("");
       try {
         const response = await axios.post(
-          "https://connectify-93bj.onrender.com/community/myCommunities",
+          `${BackendURL}/community/myCommunities`,
           { userId: userId },
           { withCredentials: true }
         );

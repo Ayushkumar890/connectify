@@ -2,6 +2,7 @@ import { Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader';
+import BackendURL from "../api/auth";
 
 const ProtectedRoute = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -10,7 +11,7 @@ const ProtectedRoute = ({ children }) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await axios.get('https://connectify-93bj.onrender.com/api/auth/verify-token', {
+                const response = await axios.get(`${BackendURL}/api/auth/verify-token`, {
                     withCredentials: true,
                 });
 
