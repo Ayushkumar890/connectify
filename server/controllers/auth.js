@@ -99,12 +99,9 @@ exports.login = async (req, res) => {
       });
       const options = {
         expires: new Date(Date.now() + 3 * 60 * 60 * 1000),
-        // httpOnly: true,
-        // secure: process.env.NODE_ENV === 'production',
-        // sameSite: 'none',
         httpOnly: true,
-        secure: false, // local development
-        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       };
 
       res.cookie("jwtToken", token, options).status(200).json({
@@ -169,7 +166,6 @@ exports.sendotp = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "OTP sent successfully",
-      otp, // In production, this should not be sent in the response for security reasons
     });
   } catch (error) {
     console.error("Error sending OTP:", error.message);
@@ -185,9 +181,13 @@ exports.logout = (req, res) => {
     httpOnly: true,
     expires: new Date(Date.now() - 1),
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   });
-  res.status(200).json({ success: true, message: "Logged out successfully" });
+
+  res.status(200).json({
+    success: true,
+    message: "Logged out successfully",
+  });
 };
 
 exports.getUserById = async (req, res) => {
