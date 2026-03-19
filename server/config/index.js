@@ -1,2 +1,2 @@
-export const BackendURL = process.env.BACKEND_URL || "http://localhost:8000";
-export const FrontendURL = process.env.FRONTEND_URL || "http://localhost:3000";
+export const BackendURL = process.env.BACKEND_URL || "https://connectify-backend-plt.vercel.app";
+export const FrontendURL = process.env.FRONTEND_URL || "https://connectify-plt.vercel.app";

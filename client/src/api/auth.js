@@ -1,6 +1,7 @@
 // import axios from 'axios';
 
-const BackendURL = "http://localhost:8000";
+// const BackendURL = "http://localhost:8000";
+const BackendURL = "https://connectify-backend-plt.vercel.app";
 export default BackendURL;
 
 // export const login = (data) => axios.post(`${API_URL}/login`, data);
