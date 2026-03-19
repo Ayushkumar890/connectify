@@ -42,7 +42,6 @@ const PublicRoute = ({ children }) => {
                     data-testid="loader"
                 />
                 <p className="mt-4 text-lg text-gray-200 text-center">
-                    Please wait a moment... Render is taking a little time for backend deployment.
                 </p>
             </div>
         );
